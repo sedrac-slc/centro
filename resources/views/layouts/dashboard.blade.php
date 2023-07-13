@@ -1,8 +1,6 @@
 @extends('layouts.template')
 @php
-    use App\Utils\{ClienteUtil, FuncionarioUtil};
-    $isCliente = ClienteUtil::isAuth();
-    $isFuncionario = FuncionarioUtil::isAuth();
+    $isFarmaceutico = Auth::user()->tipo == 'FARMACEUTICO';
 @endphp
 @section('body', 'bg-light')
 @section('css')
@@ -14,7 +12,7 @@
         <div class="border-end bg-primary text-white position-relative" id="sidebar-wrapper">
             <div class="sidebar-heading">
                 <div class="text-center">
-                    <div><span>Registadora</span></div>
+                    <div><span>Farmacia</span></div>
                 </div>
             </div>
             <div class="list-group list-group-flush">
@@ -27,22 +25,27 @@
                     <i class="fas fa-user-circle"></i>
                     <span>Conta</span>
                 </a>
-                @if ($isFuncionario)
-                    <a href="{{ route('funcionarios.index') }}"
-                        class="@if (isset($panel) && $panel == 'funcionarios') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
-                        <i class="fas fa-user-secret"></i>
-                        <span>Funcionarios</span>
-                    </a>
-                    <a href="{{ route('clientes.index') }}"
-                        class="@if (isset($panel) && $panel == 'clientes') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
+                @if ($isFarmaceutico)
+                    <a href="{{ route('utilizadores.index') }}"
+                        class="@if (isset($panel) && $panel == 'utilizadores') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
                         <i class="fas fa-users"></i>
-                        <span>Clientes</span>
+                        <span>Utilizadores</span>
+                    </a>
+                    <a href="{{ route('medicamentos.index') }}"
+                        class="@if (isset($panel) && $panel == 'medicamentos') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
+                        <i class="fa fa-user-md" aria-hidden="true"></i>
+                        <span>Medicamentos</span>
+                    </a>
+                    <a href="{{ route('retiradas.index') }}"
+                        class="@if (isset($panel) && $panel == 'retiradas') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
+                        <i class="fa fa-money-bill" aria-hidden="true"></i>
+                        <span>Retiradas</span>
                     </a>
                 @endif
-                <a href="{{ route('servicos.index') }}"
-                    class="@if (isset($panel) && $panel == 'servicos') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
-                    <i class="fa fa-tools" aria-hidden="true"></i>
-                    <span>Servicos</span>
+                <a href="#"
+                    class="@if (isset($panel) && $panel == 'relatorios') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    <span>Relatórios</span>
                 </a>
             </div>
             <div class="div-logout">
@@ -54,17 +57,17 @@
 
             <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
                 <div class="container-fluid">
-                        <form class="d-flex gap-1" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button class="btn btn-warning rounded" id="sidebarToggle">
-                                <i class="fas fa-bars"></i>
-                                <span>Menu</span>
-                            </button>
-                            <button type="submit" class="btn btn-danger rounded">
-                                <i class="fas fa-power-off"></i>
-                                <span>logaut</span>
-                            </button>
-                        </form>
+                    <form class="d-flex gap-1" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="btn btn-warning rounded" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                            <span>Menu</span>
+                        </button>
+                        <button type="submit" class="btn btn-danger rounded">
+                            <i class="fas fa-power-off"></i>
+                            <span>logaut</span>
+                        </button>
+                    </form>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation"><span

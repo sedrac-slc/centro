@@ -1,3 +1,5 @@
+
+@php use App\Utils\UserUtil; @endphp
 <div class="row mt-1">
     <div class="col-md-6">
         @include('components.input', [
@@ -27,7 +29,7 @@
         ])
     </div>
 </div>
-<div class="row mt-1 pb-3">
+<div class="row mt-1">
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Data nascimento:',
@@ -43,7 +45,6 @@
         ])
     </div>
     <div class="col-md-6">
-        @php use App\Utils\UserUtil; @endphp
         @include('components.select', [
             'label' => 'Gênero:',
             'icon' => 'fas fa-venus-mars',
@@ -55,6 +56,8 @@
             'inline' => $inline ?? false,
         ])
     </div>
+</div>
+<div class="row mt-1 pb-3">
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Telefone:',
@@ -67,6 +70,18 @@
             'rounded' => $rounded ?? false,
             'inline' => $inline ?? false,
             'disabled' => $disabled ?? false,
+        ])
+    </div>
+    <div class="col-md-6">
+        @include('components.select', [
+            'label' => 'Ocupaçãi:',
+            'icon' => 'fas fa-user-secret',
+            'name' => 'tipo',
+            'require' => true,
+            'list' => UserUtil::tipos(),
+            'init' => $user->tipo ?? '',
+            'rounded' => $rounded ?? false,
+            'inline' => $inline ?? false,
         ])
     </div>
 </div>

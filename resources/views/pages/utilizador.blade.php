@@ -1,9 +1,4 @@
-@extends('layouts.page', ['list' => $users])
-@php
-    use App\Utils\{ClienteUtil, FuncionarioUtil};
-    $isCliente = ClienteUtil::isAuth();
-    $isFuncionario = FuncionarioUtil::isAuth();
-@endphp
+@extends('layouts.page', ['list' => $utlizadores])
 @section('page-container')
 @endsection
 @section('css')
@@ -22,10 +17,6 @@
         <span>adicionar</span>
     </button>
 @endsection
-@php $perfil = isset($panel) ? $panel : ""; @endphp
-@if ($perfil == 'clientes')
-    <input type="hidden" id="url-json" value="{{ route('servico.json') }}">
-@endif
 @section('thead')
     <th>
         <div><i class="fas fa-image"></i><span>Foto</span></div>
@@ -45,24 +36,15 @@
     <th>
         <div><i class="fas fa-calendar"></i><span>Data nascimnto</span></div>
     </th>
-    @if ($perfil == 'funcionarios')
-        <th>
-            <div><i class="fas fa-list-ol"></i><span>Tipo</span></div>
-        </th>
-    @elseif ($perfil == 'clientes')
-        <th>
-            <div><i class="fas fa-list-ol"></i><span>Quantidade(Serviço)</span></div>
-        </th>
-        <th colspan="2">
-            <div><i class="fas fa-cog"></i><span>Serviços</span></div>
-        </th>
-    @endif
+    <th>
+        <div><i class="fas fa-user-secret"></i><span>Tipo</span></div>
+    </th>
     <th colspan="2">
         <div><i class="fas fa-tools"></i><span>Acções</span></div>
     </th>
 @endsection
 @section('tbody')
-    @foreach ($users as $user)
+    @foreach ($utlizadores as $user)
         <tr style="align-items: center;" >
             <td class="text-center">
                 @if ($user->image)
@@ -90,30 +72,9 @@
             </td>
             <td>{{ $user->phone }}</td>
             <td>{{ $user->birthday }}</td>
-            @if ($perfil == 'funcionarios')
-                <td data-vd={{ $user->funcionario->tipo }}>
-                    {{ $user->funcionario->tipo }}
-                </td>
-            @elseif ($perfil == 'clientes')
-                <td>{{ $user->cliente->quantidade_servico }}</td>
-                <td>
-                    <a href="#" class="text-primary rounded btn-sm btn-servico-add d-flex gap-1 align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#modalServicoJoin" url="{{ route('cliente.servico', $user->cliente_id) }}" operation="ADD"
-                        method="PUT" name_cliente="{{ $user->name }}">
-                        <i class="fas fa-plus"></i>
-                        <span>adicionar</span>
-                    </a>
-                </td>
-                <td>
-                    <a href="#" class="text-warning rounded btn-sm btn-servico-list d-flex gap-1 align-items-center" data-bs-toggle="modal"
-                        data-bs-target="#modalServicoJoin" url="{{ route('cliente.servico', $user->cliente_id) }}" operation="LIST" method="DELETE"
-                        cliente="{{ $user->cliente_id }}" name_cliente="{{ $user->name }}">
-                        <i class="fas fa-bars"></i>
-                        <span>lista</span>
-                        <sup>{{ $user->cliente->servicos->count() }}</sup>
-                    </a>
-                </td>
-            @endif
+            <td data-vd={{ $user->tipo }}>
+                {{ $user->tipo }}
+            </td>
             <td>
                 <a href="#" class="text-info rounded btn-sm btn-user-tr d-flex gap-1 align-items-center" data-bs-toggle="modal"
                     data-bs-target="#modalUser" url="{{ route($panel . '.update', $user->id) }}" method="PUT">
@@ -132,23 +93,13 @@
     @endforeach
 @endsection
 @section('modal')
-    @include('components.modal.user', ['type' => $panel])
+    @include('components.modal.utilizador', ['type' => $panel])
     @include('components.modal.fileupload')
-    @if($perfil == 'clientes')
-        @include('components.modal.cliente.service')
-    @endif
 @endsection
 @section('script')
     @parent
     <script src="{{ asset('js/help/clearForm.help.js') }}"></script>
     <script src="{{ asset('js/help/select.help.js') }}"></script>
     <script src="{{ asset('js/fileupload.js') }}"></script>
-    @if ($perfil == 'funcionarios')
-        <script src="{{ asset('js/page/user/funcionario.js') }}"></script>
-    @elseif ($perfil == 'clientes')
-        <script src="{{ asset('js/page/user/cliente.js') }}"></script>
-        <script src="{{ asset('js/page/cliente/servico.js') }}"></script>
-    @else
-        <script src="{{ asset('js/page/user.js') }}"></script>
-    @endif
+    <script src="{{ asset('js/page/utilizador.js') }}"></script>
 @endsection

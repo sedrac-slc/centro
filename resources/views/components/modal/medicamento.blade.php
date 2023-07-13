@@ -1,14 +1,14 @@
-<div class="modal fade m-2 p-1" id="modalServico" tabindex="-1" aria-labelledby="modalServicoTitle" aria-hidden="true">
+<div class="modal fade m-2 p-1" id="modalMedicamento" tabindex="-1" aria-labelledby="modalMedicamentoTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <form id="form-user" class="modal-content bg-white rounded" action="" method="POST" enctype="multipart/form-data">
         @csrf
         @method('POST')
         <div class="modal-header">
-          <h5 class="modal-title" id="modalServicoTitle"></h5>
+          <h5 class="modal-title" id="modalMedicamentoTitle"></h5>
         </div>
         <div class="modal-body">
             <input type="hidden" name="key" id="key"/>
-            @include('components.import.servico',[
+            @include('components.import.medicamento',[
                 'rounded' => true
             ])
         </div>

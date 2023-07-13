@@ -22,7 +22,7 @@ class MedicamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => "required",
+            'user_id' => "nullable",
             'nome' => "required",
             'descricao' => "required",
             'quantidade_stock' => "required",

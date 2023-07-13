@@ -8,16 +8,9 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" name="key" id="key" />
-                @include('components.import.user', [
+                @include('components.import.utilizador', [
                     'rounded' => true,
                 ])
-                @isset($type)
-                    @if ($type == 'funcionarios')
-                        @include('components.import.user.funcionario')
-                    @elseif($type == 'clientes')
-                        @include('components.import.user.cliente')
-                    @endif
-                @endisset
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-outline-primary rounded">

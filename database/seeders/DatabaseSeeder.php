@@ -47,7 +47,9 @@ class DatabaseSeeder extends Seeder
                 $quantidade_stock = $quantidade_inicial - $quantidade_retirada;
                 $medicamento->stock = $quantidade_stock;
                 if($medicamento->stock != $quantidade_inicial){
-                    $medicamento->update($medicamento->all());
+                    $medicamento->update([
+                        'quantidade_stock' => $medicamento->stock
+                    ]);
                     Retirada::create((object)[
                         'user_id' => $farmaceutico->user_id,
                         'medicamento_id' => $medicamento->id,
