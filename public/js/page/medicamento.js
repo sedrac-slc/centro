@@ -16,10 +16,12 @@
         let column = row.children;
         let userDatas = [
             {name:"nome", value: column[0].innerHTML, readonly: false},
-            {name:"preco", value: column[1].innerHTML, readonly: false},
-            //{name:"descricao", value: column[2].innerHTML, readonly: false}
+            {name:"quantidade_stock", value: column[1].innerHTML, readonly: false},
+            {name:"quantidade_minino_stock", value: column[2].innerHTML, readonly: false},
+            {name:"data_validade", value: column[3].innerHTML, readonly: false},
+            //{name:"descricao", value: column[4].innerHTML, readonly: false}
         ];
-        textareaChange("descricao", column[2].innerHTML, action);
+        textareaChange("descricao", column[4].innerHTML, action);
         userDatas.forEach(obj =>{
             let inptObj = doc.querySelector(`[name='${obj.name}']`);
             inptObj.setAttribute("value", obj.value);

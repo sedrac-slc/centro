@@ -34,6 +34,7 @@
             <td>{{ $medicamento->nome }}</td>
             <td>{{ $medicamento->quantidade_stock }}</td>
             <td>{{ $medicamento->quantidade_minino_stock }}</td>
+            <td>{{ $medicamento->data_validade }}</td>
             <td>{{ $medicamento->descricao }}</td>
             <td>
                 <a href="#" class="text-warning rounded btn-sm btn-user-tr d-flex gap-1 align-items-center"
