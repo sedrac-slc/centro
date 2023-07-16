@@ -74,7 +74,7 @@
     </div>
     <div class="col-md-6">
         @include('components.select', [
-            'label' => 'Ocupaçãi:',
+            'label' => 'Ocupação:',
             'icon' => 'fas fa-user-secret',
             'name' => 'tipo',
             'require' => true,
@@ -82,6 +82,7 @@
             'init' => $user->tipo ?? '',
             'rounded' => $rounded ?? false,
             'inline' => $inline ?? false,
+            'disabled' => isset($funcionario_readonly)
         ])
     </div>
 </div>

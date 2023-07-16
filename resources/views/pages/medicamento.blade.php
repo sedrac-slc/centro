@@ -5,7 +5,6 @@
     @parent
     <link rel="stylesheet" href="{{ asset('css/page/home.css') }}" />
 @endsection
-@if ($isFuncionario)
     @section('buttons')
         <button class="btn btn-outline-primary rounded" id="btn-add-user" data-bs-toggle="modal"
             data-bs-target="#modalMedicamento" url="{{ route($panel . '.store') }}" method="POST">
@@ -13,16 +12,21 @@
             <span>adicionar</span>
         </button>
     @endsection
-@endif
 @section('thead')
     <th>
         <div><i class="fas fa-signature"></i><span>Nome</span></div>
     </th>
     <th>
-        <div><i class="fas fa-number"></i><span>Stock</span></div>
+        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Quantidade(mínima)</span></div>
     </th>
     <th>
         <div><i class="fas fa-comment"></i><span>Descricao</span></div>
+    </th>
+    <th>
+        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Quantidade(Stock)</span></div>
+    </th>
+    <th colspan="2">
+        <div><i class="fas fa-bars"></i><span>Items</span></div>
     </th>
     <th colspan="2">
         <div><i class="fas fa-tools"></i><span>Acções</span></div>
@@ -32,10 +36,23 @@
     @foreach ($medicamentos as $medicamento)
         <tr>
             <td>{{ $medicamento->nome }}</td>
-            <td>{{ $medicamento->quantidade_stock }}</td>
             <td>{{ $medicamento->quantidade_minino_stock }}</td>
-            <td>{{ $medicamento->data_validade }}</td>
             <td>{{ $medicamento->descricao }}</td>
+            <td>{{ sizeof($medicamento->items) }}</td>
+            <td>
+                <a href="#" class="text-primary rounded btn-sm btn-item-tr d-flex gap-1 align-items-center"
+                    data-bs-toggle="modal" data-bs-target="#modalItem"
+                    data-value="{{ $medicamento->nome }}" data-key="{{ $medicamento->id }}">
+                    <i class="fas fa-plus"></i>
+                    <span>adicionar</span>
+                </a>
+            </td>
+            <td>
+                <a href="{{ route('items.medicamento',$medicamento->id) }}" class="text-info rounded btn-sm btn-item-del d-flex gap-1 align-items-center">
+                    <i class="fas fa-bars"></i>
+                    <span>listar</span>
+                </a>
+            </td>
             <td>
                 <a href="#" class="text-warning rounded btn-sm btn-user-tr d-flex gap-1 align-items-center"
                     data-bs-toggle="modal" data-bs-target="#modalMedicamento"
@@ -57,6 +74,7 @@
 @endsection
 @section('modal')
     @include('components.modal.medicamento')
+    @include('components.modal.item',["route" => route('items.store')])
 @endsection
 @section('script')
     @parent

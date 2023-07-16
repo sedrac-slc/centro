@@ -5,26 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Retirada extends Model
+class ItemRetirada extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'id',
+        'retirada_id',
+        'codigo',
+        'data_validade',
         'medicamento_id',
-        'quantidade_inicial',
-        'quantidade_retirada',
-        'quantidade_stock',
         'created_by',
         'updated_by'
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
+    protected $table = "item_retirada";
 
     public function medicamento(){
-        return $this->belongsTo(Medicamento::class);
+        return $this->belongsTo(Medicamento::class,"medicamento_id");
     }
 
 }

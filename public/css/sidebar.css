@@ -79,6 +79,10 @@
     margin-left: 0;
   }
 
+  .nav-item.disabled{
+    background: rgb(238, 120, 120,.5) !important;
+  }
+
   @media (min-width: 768px) {
     #sidebar-wrapper {
       margin-left: 0;

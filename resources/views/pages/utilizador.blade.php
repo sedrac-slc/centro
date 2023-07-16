@@ -1,6 +1,7 @@
-@extends('layouts.page', ['list' => $utlizadores])
-@section('page-container')
-@endsection
+@extends('layouts.page', ['list' => $utilizadores])
+@php
+    use App\Utils\UserUtil;
+@endphp
 @section('css')
     @parent
     <link rel="stylesheet" href="{{ asset('css/page/home.css') }}" />
@@ -44,7 +45,7 @@
     </th>
 @endsection
 @section('tbody')
-    @foreach ($utlizadores as $user)
+    @foreach ($utilizadores as $user)
         <tr style="align-items: center;" >
             <td class="text-center">
                 @if ($user->image)
@@ -68,12 +69,12 @@
             <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
             <td data-vd="{{ $user->gender }}">
-                {{ $user->gender }}
+                {{ UserUtil::genders()[$user->gender] }}
             </td>
             <td>{{ $user->phone }}</td>
             <td>{{ $user->birthday }}</td>
             <td data-vd={{ $user->tipo }}>
-                {{ $user->tipo }}
+                {{ UserUtil::tipos()[$user->tipo] }}
             </td>
             <td>
                 <a href="#" class="text-info rounded btn-sm btn-user-tr d-flex gap-1 align-items-center" data-bs-toggle="modal"

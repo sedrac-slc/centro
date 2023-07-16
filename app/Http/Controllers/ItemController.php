@@ -3,37 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UtilizadorRequest;
-use App\Models\User;
+use App\Http\Requests\ItemRequest;
+use App\Models\Item;
+use App\Models\Medicamento;
 use App\Utils\UserUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
-class UtilizadorController extends Controller
+class ItemController extends Controller
 {
     public function index(){
         if(!UserUtil::isFarmaceutico()){
             toastr()->warning("Não tens permissão", "Permissão");
             return redirect()->back();
         }
-        $utilizadores = User::orderBy('id','desc')->paginate();
-        return view('pages.utilizador', ["panel"=>"utilizadores","utilizadores"=>$utilizadores]);
+        $items = Item::orderBy('id','desc')->paginate();
+        return view('pages.item', ["panel"=>"items","items"=>$items]);
     }
 
-    public function store(UtilizadorRequest $request){
-        $request->validate([
-            "tipo" => "required",
-            "password" => "required",
-            "password_confirmation" => "required"
-        ]);
+    public function store(ItemRequest $request){
         if(!UserUtil::isFarmaceutico()){
             toastr()->warning("Não tens permissão", "Permissão");
-            return redirect()->back();
-        }
-        if($request->password != $request->password_confirmation){
-            toastr()->warning("As senhas são diferntes", "Aviso");
             return redirect()->back();
         }
         try {
@@ -41,8 +32,7 @@ class UtilizadorController extends Controller
                $data = $request->all();
                $data['created_by'] = Auth::user()->id;
                $data['updated_by'] = Auth::user()->id;
-               $data['password'] = Hash::make($data['password']);
-               User::create($data);
+               Item::create($data);
             });
             toastr()->success("Operação de criação realizada com sucesso", "Successo");
             return redirect()->back();
@@ -52,8 +42,7 @@ class UtilizadorController extends Controller
         }
     }
 
-    public function update(UtilizadorRequest $request, $id){
-        $request->validate(["tipo" => "required"]);
+    public function update(ItemRequest $request, $id){
         if(!UserUtil::isFarmaceutico()){
             toastr()->warning("Não tens permissão", "Permissão");
             return redirect()->back();
@@ -62,8 +51,8 @@ class UtilizadorController extends Controller
             DB::transaction(function () use ($request, $id) {
                 $data = $request->all();
                 $data['updated_by'] = Auth::user()->id;
-                $utilizador = User::find($id);
-                $utilizador->update($data);
+                $item = Item::find($id);
+                $item->update($data);
             });
             toastr()->success("Operação de actualização realizada com sucesso", "Successo");
             return redirect()->back();
@@ -80,8 +69,8 @@ class UtilizadorController extends Controller
         }
         try {
             DB::transaction(function () use ($id) {
-                $utilizador = User::find($id);
-                $utilizador->delete();
+                $item = Item::find($id);
+                $item->delete();
             });
             toastr()->success("Operação de eliminação realizada com sucesso", "Successo");
             return redirect()->back();
@@ -89,6 +78,20 @@ class UtilizadorController extends Controller
             toastr()->error("Não foi possível a eliminação desta operação", "Erro");
             return redirect()->back();
         }
+    }
+
+    public function medicamento($id){
+        if(!UserUtil::isFarmaceutico()){
+            toastr()->warning("Não tens permissão", "Permissão");
+            return redirect()->back();
+        }
+        $medicamento = Medicamento::find($id);
+        if(!isset($medicamento->id)){
+            toastr()->warning("Medicamento não encontrado", "Aviso");
+            return redirect()->back();
+        }
+        $items = Item::where('medicamento_id', $id)->orderBy('id','desc')->paginate();
+        return view('pages.item', ["panel"=>"items","medicamento"=>$medicamento,"items"=>$items]);
     }
 
 }

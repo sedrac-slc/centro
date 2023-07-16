@@ -25,9 +25,7 @@ class MedicamentoRequest extends FormRequest
             'user_id' => "nullable",
             'nome' => "required",
             'descricao' => "required",
-            'quantidade_stock' => "required",
             'quantidade_minino_stock' => "required",
-            'data_validade' => "required",
         ];
     }
 

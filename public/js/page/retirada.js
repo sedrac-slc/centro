@@ -1,94 +1,65 @@
 (function (win, doc) {
     "use strict";
+    const formUser = doc.querySelector('#form-retirada');
+    const btnUserAdd = doc.querySelector("#btn-add-retirada");
+    const modalRetiradaTitle = doc.querySelector('#modalRetiradaTitle');
+    const spanOperaction = doc.querySelector("#span-operaction");
 
-    const btnAction = doc.querySelector("#btn-action");
-    const formRealizacao = doc.querySelector('#form-realizacao');
-    const modalRealizacaoTitle = doc.querySelector('#modalRealizacaoTitle');
+    const btnUpRetirada = doc.querySelectorAll('.btn-retirada-tr');
+    const btnDelRetirada = doc.querySelectorAll('.btn-retirada-del');
 
-    const formComponent = doc.querySelector("#form-component");
-    const tableComponent = doc.querySelector("#table-component");
+    const medicamentoNome = doc.querySelector("#medicamento_nome");
 
-    const methodForm = doc.querySelector(`#form-realizacao [name="_method"]`);
+    function modalOperaction(item, action=false){
+        formUser.action = item.getAttribute('url');
+        doc.querySelector("[name='_method']").setAttribute('value',item.getAttribute('method'));
+        let row = item.parentElement.parentElement;
+        let column = row.children;
+        let userDatas = [
+            {name:"farmaceutico_nome", value: column[0].innerHTML, readonly: true},
+            {name:"medicamento_nome", value: column[1].innerHTML, readonly: false},
+        ];
+        userDatas.forEach(obj =>{
+            let inptObj = doc.querySelector(`[name='${obj.name}']`);
+            inptObj.setAttribute("value", obj.value.trim());
+            obj.readonly ? inptObj.setAttribute('disabled','') : inptObj.removeAttribute('disabled');
+            action ? inptObj.setAttribute('disabled','') : inptObj.removeAttribute('disabled');
+        });
+    }
 
-    const btnsRealizacaoAdd = doc.querySelectorAll(".btns-realizacao-add");
-    const btnsRealizacaoList = doc.querySelectorAll(".btns-realizacao-list");
+    btnUserAdd.addEventListener("click", (e) => {
+        const farmaceutico = doc.querySelector("#farmaceutico_nome");
+        modalRetiradaTitle.innerHTML = "Adicionar";
+        spanOperaction.innerHTML = "cadastrar";
+        formUser.action = btnUserAdd.getAttribute('url');
+        doc.querySelector("[name='_method']").setAttribute('value','POST');
+        farmaceutico.value = btnUserAdd.dataset.nome;
+        farmaceutico.setAttribute('disabled','');
+        farmaceutico.setAttribute('readonly','');
+        clearFormControlActive();
+    });
 
-    function dNoneRemove(obj, action){
-        if(action){
-            if(obj.classList.contains('d-none'))
-                obj.classList.remove('d-none');
-        }else{
-            if(!obj.classList.contains('d-none'))
-                obj.classList.add('d-none');
+    btnUpRetirada.forEach(item =>{
+        item.addEventListener('click', (e)=>{
+            modalRetiradaTitle.innerHTML = "Actualização";
+            spanOperaction.innerHTML = "editar";
+            modalOperaction(item);
+        })
+    });
+
+    btnDelRetirada.forEach(item =>{
+        item.addEventListener('click', (e)=>{
+            modalRetiradaTitle.innerHTML = "Apagar";
+            spanOperaction.innerHTML = "eliminar";
+            modalOperaction(item, true);
+        })
+    });
+
+    medicamentoNome.addEventListener('blur',(e)=>{
+        let nome = medicamentoNome.value.trim();
+        if(nome != ""){
+            ajaxMedicamento(nome)
         }
-    }
-
-    btnsRealizacaoAdd.forEach(item => {
-        item.addEventListener('click',(e)=>{
-            dNoneRemove(btnAction, true);
-            dNoneRemove(formComponent, true);
-            dNoneRemove(tableComponent, false);
-            tableComponent.innerHTML = ""
-            formRealizacao.action = item.getAttribute('url');
-            modalRealizacaoTitle.innerHTML = item.getAttribute('title');
-            methodForm.value = item.getAttribute('method');
-        })
     });
-
-    btnsRealizacaoList.forEach(item => {
-        item.addEventListener('click',(e)=>{
-            dNoneRemove(btnAction, false);
-            dNoneRemove(formComponent, false);
-            dNoneRemove(tableComponent, true)
-
-            formRealizacao.action = item.getAttribute('url');
-            modalRealizacaoTitle.innerHTML = item.getAttribute('title');
-            methodForm.value = item.getAttribute('method');
-            let html = "";
-            let viewAction = item.getAttribute('viewAction');
-            fetch(`${item.getAttribute('url-json')}`)
-            .then(resp => resp.json())
-            .then(resp => {
-                let tdAction;
-                resp.forEach(obj => {
-                    tdAction = !viewAction || viewAction != "true" ? ""
-                    :`<td>
-                        <button class="btn btn-danger" type="submit" value="${obj.id}" name="realizacao_id">
-                            <i class="fas fa-trash"></i>
-                            <span>apagar</span>
-                        </button>
-                    </td>`;
-                    html += `<tr>
-                        <td>${obj.dia_semana}</td>
-                        <td>${obj.hora_abertura}</td>
-                        <td>${obj.hora_termino}</td>
-                        ${tdAction}
-                    </tr>`
-                })
-
-            tableComponent.innerHTML = html != ""
-                ?  tableComponentCreate(html, viewAction)
-                :  `<div class="msg-empty"> Nenhum resultado foi encontrado</div>`;
-            });
-
-
-        })
-    });
-
-    function tableComponentCreate(line, viewAction){
-       let tdAction = !viewAction || viewAction != "true" ? ""
-        :`<th><i class="fas fa-tools"></i><span>Acção</span></th>`;
-        return `<table class="table">
-            <thead>
-                <tr>
-                    <th><i class="fas fa-calendar"></i><span>Dia semana</span></th>
-                    <th><i class="fas fa-clock"></i><span>Hora abertura</span></th>
-                    <th><i class="fas fa-clock"></i><span>Hora termino</span></th>
-                    ${tdAction}
-                </tr>
-            </thead>
-            <tbody>${line}</tbody>
-        </table>`;
-    }
 
 })(window, document);

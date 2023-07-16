@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('medicamentos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('nome')->unique();
             $table->string('descricao')->unique();
-            $table->integer('quantidade_stock')->unsigned()->default(0);
             $table->integer('quantidade_minino_stock')->unsigned()->default(0);
-            $table->integer('data_validade')->date();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();

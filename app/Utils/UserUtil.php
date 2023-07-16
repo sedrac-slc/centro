@@ -2,7 +2,13 @@
 
 namespace App\Utils;
 
+use Illuminate\Support\Facades\Auth;
+
 class UserUtil{
+
+    public static function isFarmaceutico(){
+        return Auth::user()->tipo == 'FARMACEUTICO';
+    }
 
     public static function genders(){
         return ['MALE' => 'Masculino','FEMALE' => 'Femenino'];
@@ -25,17 +31,18 @@ class UserUtil{
 
     public static function generatorFaker(){
         $genders = UserUtil::keysGenders();
-        $gender = $genders[UserUtil::indexRandom($genders)];
+        $indexGender = UserUtil::indexRandom($genders);
+        $gender = $genders[$indexGender];
 
         $tipos = UserUtil::keysTipos();
-        $tipo = $genders[UserUtil::indexRandom($tipos)];
+        $indexTipo = UserUtil::indexRandom($tipos);
 
         return [
             'name'  => fake()->name($gender),
             'email'  => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
-            'gender' => $genders[$gender],
-            'tipo' => $tipos[$tipo],
+            'gender' => $genders[$indexGender],
+            'tipo' => $tipos[$indexTipo],
             'birthday' => fake()->date(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
         ];

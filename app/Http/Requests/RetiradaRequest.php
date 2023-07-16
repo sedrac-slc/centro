@@ -22,11 +22,11 @@ class RetiradaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => "required",
+            'user_id' => "nullable",
             'medicamento_id' => "required",
-            'quantidade_inicial' => "required",
-            'quantidade_retirada' => "required",
-            'quantidade_stock' => "required",
+            'quantidade_inicial' => "nullable",
+            'quantidade_retirada' => "nullable",
+            'quantidade_stock' => "nullable",
         ];
     }
 }

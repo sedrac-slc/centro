@@ -29,7 +29,7 @@
                         <i class="fas fa-plus"></i>
                         <span>Foto de perfil</span>
                     </button>
-                    @include('components.import.user', [
+                    @include('components.import.utilizador', [
                         'user' => Auth::user(),
                         'inline' => false,
                         'disabled' => true,
@@ -50,9 +50,10 @@
                 <div class="accordion-body">
                     <form action="{{ route('account.update') }}" method="POST">
                         @csrf
-                        @include('components.import.user', [
+                        @include('components.import.utilizador', [
                             'user' => Auth::user(),
                             'inline' => true,
+                            'funcionario_readonly' => true,
                         ])
                         <button class="btn btn-primary rounded m-2" type="submit">
                             <i class="fas fa-check-circle"></i>

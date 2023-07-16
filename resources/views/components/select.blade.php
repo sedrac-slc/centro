@@ -9,9 +9,12 @@
     class="form-control @isset($class) {{ $class }} @endisset
     @if(isset($rounded) && $rounded) rounded @endif
     @if(isset($inline) && $inline) inline @endif"
+
     name="{{ $name }}" id="{{ $name }}" @if ($require ?? false) required @endif
     @isset($default) default="{{ $default }}" @endisset
-    @if(isset($disabled) && $disabled) disabled @endif>
+    @if(isset($disabled) && $disabled) disabled @endif
+    @if(isset($readonly) && $readonly) readonly @endif
+>
     @isset($init)
         @foreach ($list as $key => $value)
             <option value="{{ $key }}" @if ($key == $init) selected @endif>{{ $value }}

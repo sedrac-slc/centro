@@ -6,7 +6,7 @@
 @section('painel')
     <section class="shadow p-2  mt-4 bg-white">
         @isset($panel)
-            <nav aria-label="breadcrumb">
+            <nav class="float-right" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Painel</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ $panel }}</li>
@@ -23,9 +23,10 @@
         @yield('page-container')
         @yield('form-open')
         <div class="table-responsive">
-            <table class="table table-striped  table-hover text-center">
+            {{-- table-striped  table-bordered --}}
+            <table class="table table-striped table-hover text-center">
                 <thead>
-                    <tr>
+                    <tr class="table-primary">
                         @yield('thead')
                     </tr>
                 </thead>

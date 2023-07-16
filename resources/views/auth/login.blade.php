@@ -1,14 +1,20 @@
 @extends('layouts.template')
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/login-register.css') }}" />
+<style>
+    .navbar{
+        margin-bottom: 4rem !important;
+    }
+</style>
 @endsection
 @section('content')
-    <form method="POST" action="{{ route('login') }}" class="w-50 bg-white pt-4">
+<nav class="navbar bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="#">Farmacia</a>
+    </div>
+  </nav>
+    <form method="POST" action="{{ route('login') }}" class="w-50 bg-white mt-3 m-auto border rounded p-3">
         @csrf
         <h4>
-            <a href="/" class="btn btn-primary rounded">
-                voltar
-            </a>
             <span class="ml-2">Faça o Login</span>
         </h4>
         <hr/>

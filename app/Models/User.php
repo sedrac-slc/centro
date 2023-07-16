@@ -52,12 +52,12 @@ class User extends Authenticatable
 
     public function medicamentos()
     {
-        return $this->hasMany(Medicamento::class);
+        return $this->hasMany(Medicamento::class,'created_by');
     }
 
     public function retiradas()
     {
-        return $this->hasMany(Retirada::class);
+        return $this->hasMany(Retirada::class,'created_by');
     }
 
 }

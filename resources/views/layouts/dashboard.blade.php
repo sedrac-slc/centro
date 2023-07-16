@@ -1,6 +1,7 @@
 @extends('layouts.template')
 @php
-    $isFarmaceutico = Auth::user()->tipo == 'FARMACEUTICO';
+    use App\Utils\UserUtil;
+    $isFarmaceutico = UserUtil::isFarmaceutico();
 @endphp
 @section('body', 'bg-light')
 @section('css')
@@ -16,34 +17,32 @@
                 </div>
             </div>
             <div class="list-group list-group-flush">
-                <a href="/" class="list-group-item p-3 bg-primary text-white">
-                    <i class="fas fa-home"></i>
-                    <span>Página incial</span>
-                </a>
-                <a href="{{ route('home') }}"
-                    class="@if (isset($panel) && $panel == 'account') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
+                <a href="{{ route('home') }}" class="@if (isset($panel) && $panel == 'account') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item">
                     <i class="fas fa-user-circle"></i>
                     <span>Conta</span>
                 </a>
-                @if ($isFarmaceutico)
-                    <a href="{{ route('utilizadores.index') }}"
-                        class="@if (isset($panel) && $panel == 'utilizadores') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
-                        <i class="fas fa-users"></i>
-                        <span>Utilizadores</span>
-                    </a>
-                    <a href="{{ route('medicamentos.index') }}"
-                        class="@if (isset($panel) && $panel == 'medicamentos') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
-                        <i class="fa fa-user-md" aria-hidden="true"></i>
-                        <span>Medicamentos</span>
-                    </a>
-                    <a href="{{ route('retiradas.index') }}"
-                        class="@if (isset($panel) && $panel == 'retiradas') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
-                        <i class="fa fa-money-bill" aria-hidden="true"></i>
-                        <span>Retiradas</span>
-                    </a>
-                @endif
+                <a @if ($isFarmaceutico) href="{{ route('utilizadores.index') }}" @else disabled @endif
+                    class="@if (isset($panel) && $panel == 'utilizadores') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item @if (!$isFarmaceutico) disabled @endif">
+                    <i class="fas fa-users"></i>
+                    <span>Utilizadores</span>
+                </a>
+                <a @if ($isFarmaceutico) href="{{ route('medicamentos.index') }}" @else disabled @endif
+                    class="@if (isset($panel) && $panel == 'medicamentos') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item @if (!$isFarmaceutico) disabled @endif">
+                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                    <span>Medicamentos</span>
+                </a>
+                <a @if ($isFarmaceutico) href="{{ route('items.index') }}" @else disabled @endif
+                    class="@if (isset($panel) && $panel == 'items') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item @if (!$isFarmaceutico) disabled @endif">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <span>Items</span>
+                </a>
+                <a @if ($isFarmaceutico) href="{{ route('retiradas.index') }}" @else disabled @endif
+                    class="@if (isset($panel) && $panel == 'retiradas') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item @if (!$isFarmaceutico) disabled @endif">
+                    <i class="fa fa-money-bill" aria-hidden="true"></i>
+                    <span>Retiradas</span>
+                </a>
                 <a href="#"
-                    class="@if (isset($panel) && $panel == 'relatorios') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white">
+                    class="@if (isset($panel) && $panel == 'relatorios') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item">
                     <i class="fa fa-book" aria-hidden="true"></i>
                     <span>Relatórios</span>
                 </a>

@@ -1,19 +1,21 @@
-<div class="modal fade m-2 p-1" id="modalRetirada" tabindex="-1" aria-labelledby="modalRetiradaTitle" aria-hidden="true">
+<div class="modal fade m-2 p-1" id="modalItem" tabindex="-1" aria-labelledby="modalItemTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <form id="form-retirada" class="modal-content bg-white rounded" action="" method="POST" enctype="multipart/form-data">
+      <form id="form-item" class="modal-content bg-white rounded" action="{{ $route ?? "" }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
+        @method('POST')
         <div class="modal-header">
-          <h5 class="modal-title" id="modalRetiradaTitle"></h5>
+          <h5 class="modal-title" id="modalItemTitle"></h5>
         </div>
         <div class="modal-body">
             <input type="hidden" name="key" id="key"/>
-            <section id="form-component">
-                @include('components.import.retirada')
-            </section>
+            @include('components.import.item',[
+                'rounded' => true,
+                'route' => $route ?? null,
+                'medicamento' => $medicamento ?? null
+            ])
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-outline-primary rounded" id="btn-action">
+          <button type="submit" class="btn btn-outline-primary rounded">
             <i class="fas fa-check"></i>
             <span id="span-operaction">Cadastra</span>
           </button>

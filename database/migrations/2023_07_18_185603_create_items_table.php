@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('retiradas', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('medicamento_id')->constrained('medicamentos')->cascadeOnDelete();
-            $table->integer('quantidade_inicial')->unsigned()->default(0);
-            $table->integer('quantidade_retirada')->unsigned()->default(0);
-            $table->integer('quantidade_stock')->unsigned()->default(0);
+            $table->string('codigo')->unique();
+            $table->date('data_validade');
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('retiradas');
+        Schema::dropIfExists('items');
     }
 };

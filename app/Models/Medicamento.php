@@ -11,19 +11,19 @@ class Medicamento extends Model
 
     protected $fillable = [
         'id',
-        'user_id',
         'nome',
         'descricao',
-        'quantidade_stock',
         'quantidade_minino_stock',
-        'data_validade',
         'created_by',
         'updated_by'
     ];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'id','created_by');
     }
 
+    public function items(){
+        return $this->hasMany(Item::class);
+    }
 
 }
