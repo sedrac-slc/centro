@@ -7,6 +7,7 @@ use App\Http\Requests\ItemRequest;
 use App\Models\Item;
 use App\Models\Medicamento;
 use App\Utils\UserUtil;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -92,6 +93,45 @@ class ItemController extends Controller
         }
         $items = Item::where('medicamento_id', $id)->orderBy('id','desc')->paginate();
         return view('pages.item', ["panel"=>"items","medicamento"=>$medicamento,"items"=>$items]);
+    }
+
+    public function search(Request $request){
+        $request->validate(["field" => "required", "search" => "required"]);
+
+        if(!UserUtil::isFarmaceutico()){
+            toastr()->warning("Não tens permissão", "Permissão");
+            return redirect()->back();
+        }
+
+        $items = Item::orderBy('id','desc');
+        switch($request->field){
+            case "codigo":
+            case "data_validade":
+                    $items->where($request->field,'like',"%{$request->search}%");
+                break;
+            case "medicamento":
+                    $items->join('medicamentos','medicamento_id','medicamentos.id')
+                       ->where('medicamentos.nome','like',"%{$request->search}%")
+                       ->select("items.*");
+                break;
+            case "ano_validade":
+                    $items->where(DB::raw("year(data_validade)"),$request->search);
+                break;
+            case "mes_validade":
+                    $date =  new \DateTime($request->search);
+                    $items->where(DB::raw("month(data_validade)"), $date->format("m"))
+                          ->where(DB::raw("year(data_validade)"),$date->format("Y"));
+                break;
+            case "fora_do_prazo":
+                    $items->where('data_validade','<',Carbon::now());
+                break;
+            case "fora_do_prazo_elim":
+                    $items->where('data_validade','<',Carbon::now())->delete();
+                break;
+        }
+
+        $items = $items->paginate();
+        return view('pages.item', ["panel"=>"items","items"=>$items,"search"=>true]);
     }
 
 }

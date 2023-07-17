@@ -24,6 +24,12 @@
         <i class="fas fa-filter"></i>
         <span>filtros</span>
     </button>
+    @if (isset($search) && $search)
+        <a class="btn btn-outline-primary rounded" href="{{ route('items.index') }}">
+            <i class="fas fa-circle-notch"></i>
+            <span>recarregar</span>
+        </a>
+    @endif
 @endsection
 @section('thead')
     <th>
@@ -67,7 +73,7 @@
 <input type="hidden" id="url-json" value="{{ route('medicamentos.json') }}">
 @section('modal')
     @include('components.modal.item', ['medicamento' => $medicamento ?? null])
-    @include('components.modal.item.filter')
+    @include('components.modal.filtro.item')
 @endsection
 @section('script')
     @parent

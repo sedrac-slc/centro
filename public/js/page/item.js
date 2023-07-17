@@ -60,4 +60,30 @@
         }
     });
 
+    const filterSelect = doc.querySelector("#filterSelect");
+    const filterSearch = doc.querySelector("#filterSearch");
+
+    filterSelect.addEventListener('change',(e)=>{
+        switch(filterSelect.value){
+            case "mes_validade":
+                filterSearch.type = "month";
+                break;
+            case "data_validade":
+                filterSearch.type = "date";
+                break;
+            case "ano_validade":
+                filterSearch.type = "number";
+                filterSearch.min = "1900";
+                break;
+            case "fora_do_prazo":
+                filterSearch.value = "Visualizar";
+                break;
+            case "fora_do_prazo_elim":
+                filterSearch.value = "Apagar";
+                break;
+            default:
+                filterSearch.type = "text";
+        }
+    })
+
 })(window, document);
