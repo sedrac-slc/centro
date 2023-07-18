@@ -91,4 +91,21 @@ class MedicamentoController extends Controller
                         ->get();
     }
 
+    public function search(Request $request){
+        $request->validate(["field" => "required", "search" => "required"]);
+        if(!UserUtil::isFarmaceutico()){
+            toastr()->warning("Não tens permissão", "Permissão");
+            return redirect()->back();
+        }
+        $medicamentos = Medicamento::orderBy('id','desc');
+        switch($request->field){
+            case "nome":
+            case "descricao":
+                    $medicamentos->where($request->field,'like',"%{$request->search}%");
+                break;
+        }
+        $medicamentos = $medicamentos->paginate();
+        return view('pages.medicamento', ["panel"=>"medicamentos","medicamentos"=>$medicamentos,"search" => true]);
+    }
+
 }
