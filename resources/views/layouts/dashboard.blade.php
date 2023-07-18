@@ -79,6 +79,7 @@
 
                 </div>
             </nav>
+            @include('components.errors')
             <div class="container-fluid">
                 @yield('painel')
             </div>

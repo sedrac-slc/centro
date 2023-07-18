@@ -20,7 +20,11 @@ class Retirada extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'created_by');
+    }
+
+    public function items(){
+        return $this->hasMany(ItemRetirada::class);
     }
 
     public function medicamento(){

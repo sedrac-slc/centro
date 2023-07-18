@@ -1,6 +1,6 @@
 <div class="modal fade m-2 p-1" id="modalRelatorio" tabindex="-1" aria-labelledby="modalRelatorioTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <form id="form-user" class="modal-content bg-white rounded" action="" method="POST">
+        <form id="form-relatorio" class="modal-content bg-white rounded" action="{{ route('relatoria') }}" method="POST">
             @csrf
             @method('POST')
             <div class="modal-header">
@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="filterSelect">Tipo impressão:</label>
-                    <select class="form-select" name="tipo_impressao" id="tipoImpressaoRelatorio" aria-label="Floating label select example">
+                    <select class="form-select" name="tipo_impressao" id="tipoImpressaoRelatorio" aria-label="Floating label select example" required>
                         <option selected>Escolha o tipo de impressão</option>
                         <option value="simplificada">Simplificada</option>
                         <option value="detalhada">Detalhada</option>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="filterSelect">Periódo:</label>
-                    <select class="form-select" name="periodo" id="periodoRelatorio" aria-label="Floating label select example">
+                    <select class="form-select" name="periodo" id="periodoRelatorio" aria-label="Floating label select example" required>
                         <option selected>Seleciona o periódo</option>
                         <option value="diario">Diário</option>
                         <option value="mensal">Mensal</option>

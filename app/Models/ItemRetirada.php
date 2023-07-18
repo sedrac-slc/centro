@@ -25,4 +25,8 @@ class ItemRetirada extends Model
         return $this->belongsTo(Medicamento::class,"medicamento_id");
     }
 
+    public function retirada(){
+        return $this->belongsTo(Retirada::class);
+    }
+
 }
