@@ -24,17 +24,19 @@
                             </a>
                         @endif
                     </div>
-                    <button class="btn btn-warning  btn-file m-2 rounded" data-bs-toggle="modal" data-bs-target="#modalFile"
-                        url="{{ route('account.photo', Auth::user()->id) }}" method="PUT">
-                        <i class="fas fa-plus"></i>
-                        <span>Foto de perfil</span>
-                    </button>
                     @include('components.import.utilizador', [
                         'user' => Auth::user(),
                         'inline' => false,
                         'disabled' => true,
                         'password_hidden' => true,
                     ])
+
+                    <button class="btn btn-warning  btn-file m-2 rounded" data-bs-toggle="modal" data-bs-target="#modalFile"
+                        url="{{ route('account.photo', Auth::user()->id) }}" method="PUT">
+                        <i class="fas fa-plus"></i>
+                        <span>Foto de perfil</span>
+                    </button>
+
                 </div>
             </div>
         </div>
@@ -89,5 +91,6 @@
     @include('components.modal.fileupload')
 @endsection
 @section('script')
+    @parent
     <script src="{{ asset('js/fileupload.js') }}"></script>
 @endsection

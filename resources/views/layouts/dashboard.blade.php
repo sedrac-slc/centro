@@ -42,7 +42,7 @@
                     <span>Retiradas</span>
                 </a>
                 <a href="#"
-                    class="@if (isset($panel) && $panel == 'relatorios') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item">
+                    class="@if (isset($panel) && $panel == 'relatorios') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item" data-bs-toggle="modal" data-bs-target="#modalRelatorio">
                     <i class="fa fa-book" aria-hidden="true"></i>
                     <span>Relatórios</span>
                 </a>
@@ -85,7 +85,8 @@
         </div>
     </div>
 @endsection
+@include('components.modal.relatorio')
 @section('script')
     @parent
-
+    <script src="{{ asset('js/page/relatorio.js') }}"></script>
 @endsection
