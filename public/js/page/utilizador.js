@@ -69,4 +69,36 @@
         })
     });
 
+    const filterSelect = doc.querySelector("#filterSelect");
+    const filterDiv = doc.querySelector("#filter-div");
+
+    filterSelect.addEventListener('change',(e)=>{
+        let input = `<label for="filterSearch">Digita (a pesquisa):</label>`;
+        switch(filterSelect.value){
+            case "tipo":
+                let selectTipo = `<label for="filterSearch"><span>Ocupação:</span></label>
+                <select class="form-control  rounded" name="search" id="filterSearch" required="">
+                    <option value="MEDICO" selected="">Médico</option>
+                    <option value="FARMACEUTICO">Farmacêutico</option>
+                </select>`;
+                filterDiv.innerHTML = selectTipo;
+                break;
+            case "gender":
+                let selectGender= `<label for="filterSearch"><span>Gênero:</span></label>
+                    <select class="form-control rounded" name="search" id="filterSearch" required="">
+                        <option value="MALE" selected="">Masculino</option>
+                        <option value="FEMALE">Femenino</option>
+                    </select>`;
+                filterDiv.innerHTML = selectGender;
+                break;
+            case "birthday":
+                let compDate = `<input type="date" id="filterSearch" name="search" class="form-control">`;
+                filterDiv.innerHTML = input+compDate;
+                break;
+            default:
+                let compDefault = `<input type="text" id="filterSearch" name="search" class="form-control">`;
+                filterDiv.innerHTML = input+compDefault;
+        }
+    })
+
 })(window, document);

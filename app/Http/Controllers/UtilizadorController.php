@@ -91,4 +91,27 @@ class UtilizadorController extends Controller
         }
     }
 
+    public function search(Request $request){
+        $request->validate(["field" => "required", "search" => "required"]);
+        if(!UserUtil::isFarmaceutico()){
+            toastr()->warning("Não tens permissão", "Permissão");
+            return redirect()->back();
+        }
+        $utilizadores = User::orderBy('id','desc');
+        switch($request->field){
+            case "name":
+            case "email":
+            case "phone":
+            case "tipo":
+            case "birthday":
+                    $utilizadores->where($request->field,'like',"%{$request->search}%");
+                break;
+            case "gender":
+                    $utilizadores->where($request->field,$request->search);
+                break;
+        }
+        $utilizadores = $utilizadores->paginate();
+        return view('pages.utilizador', ["panel"=>"utilizadores", "utilizadores"=>$utilizadores, "search" => true]);
+    }
+
 }

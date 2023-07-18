@@ -17,6 +17,10 @@
         <i class="fas fa-user-plus"></i>
         <span>adicionar</span>
     </button>
+    <button class="btn btn-outline-primary rounded" data-bs-toggle="modal" data-bs-target="#modalUtilizador">
+        <i class="fas fa-filter"></i>
+        <span>filtros</span>
+    </button>
 @endsection
 @section('thead')
     <th>
@@ -96,6 +100,7 @@
 @section('modal')
     @include('components.modal.utilizador', ['type' => $panel])
     @include('components.modal.fileupload')
+    @include('components.modal.filtro.utilizador')
 @endsection
 @section('script')
     @parent

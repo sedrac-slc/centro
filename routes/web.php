@@ -22,7 +22,9 @@ Route::middleware(["auth"])->group(function(){
 
     Route::get('/medicamentos/json', [MedicamentoController::class, 'json'])->name('medicamentos.json');
     Route::get('/items/{id}/medicamento', [ItemController::class, 'medicamento'])->name('items.medicamento');
+
     Route::get('/items/search', [ItemController::class, 'search'])->name('items.search');
+    Route::get('/utilizadores/search', [UtilizadorController::class, 'search'])->name('utilizadores.search');
 
     Route::resource('utilizadores',UtilizadorController::class);
     Route::resource('medicamentos',MedicamentoController::class);
