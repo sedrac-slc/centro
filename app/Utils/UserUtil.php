@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserUtil{
 
@@ -44,7 +45,7 @@ class UserUtil{
             'gender' => $genders[$indexGender],
             'tipo' => $tipos[$indexTipo],
             'birthday' => fake()->date(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+            'password' => Hash::make("password")
         ];
 
     }

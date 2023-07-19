@@ -1,19 +1,29 @@
 @extends('layouts.dashboard')
 @section('painel')
+    <div class="mt-2 bg-white rounded p-2">
+        <span>Bem vindo:</span>
+        <strong>{{ Auth::user()->name }}</strong>
+    </div>
     <hr/>
     <section class="m-auto bg-white p-3">
         <ul class="nav nav-tabs p-2" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home"
-                    aria-selected="true">Dados Pessoas</a>
+                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                    <i class="fas fa-user"></i>
+                    <span>Conta</span>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
-                    aria-controls="profile" aria-selected="false">Actualização dados</a>
+                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Actualização</span>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab"
-                    aria-controls="contact" aria-selected="false">Segurança</a>
+                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+                    <i class="fas fa-user-lock"></i>
+                    <span>Segurança</span>
+                </a>
             </li>
         </ul>
         <div class="tab-content p-2" id="myTabContent">
@@ -38,7 +48,7 @@
                     'password_hidden' => true,
                 ])
 
-                <button class="btn btn-warning  btn-file m-2 rounded" data-bs-toggle="modal" data-bs-target="#modalFile"
+                <button class="btn btn-outline-warning  btn-file m-2 rounded" data-bs-toggle="modal" data-bs-target="#modalFile"
                     url="{{ route('account.photo', Auth::user()->id) }}" method="PUT">
                     <i class="fas fa-plus"></i>
                     <span>Foto de perfil</span>
@@ -52,9 +62,9 @@
                         'inline' => true,
                         'funcionario_readonly' => true,
                     ])
-                    <button class="btn btn-primary rounded m-2" type="submit">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Salvar</span>
+                    <button class="btn btn-outline-warning rounded m-2" type="submit">
+                        <i class="fas fa-save"></i>
+                        <span>Guardar</span>
                     </button>
                 </form>
             </div>
@@ -62,8 +72,8 @@
                 <form action="{{ route('account.pass') }}" method="POST">
                     @csrf
                     @include('components.import.password', ['inline' => true])
-                    <button class="btn btn-warning rounded m-2" type="submit">
-                        <i class="fas fa-check-circle"></i>
+                    <button class="btn btn-outline-warning rounded m-2" type="submit">
+                        <i class="fas fa-save"></i>
                         <span>Salvar</span>
                     </button>
                 </form>

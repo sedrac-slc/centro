@@ -24,7 +24,7 @@
         @yield('form-open')
         <div class="table-responsive">
             {{-- table-striped  table-bordered --}}
-            <table class="table table-striped table-hover text-center">
+            <table class="table table-bordered table-hover text-center">
                 <thead>
                     <tr class="table-primary">
                         @yield('thead')

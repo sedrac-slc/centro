@@ -13,11 +13,13 @@
         <div class="border-end bg-primary text-white position-relative" id="sidebar-wrapper">
             <div class="sidebar-heading">
                 <div class="text-center">
-                    <div><span>Farmacia</span></div>
+                    <div>Centro médico</div>
+                    <div>São josé</div>
                 </div>
             </div>
             <div class="list-group list-group-flush">
-                <a href="{{ route('home') }}" class="@if (isset($panel) && $panel == 'account') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item">
+                <a href="{{ route('home') }}"
+                    class="@if (isset($panel) && $panel == 'account') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item">
                     <i class="fas fa-user-circle"></i>
                     <span>Conta</span>
                 </a>
@@ -42,7 +44,8 @@
                     <span>Retiradas</span>
                 </a>
                 <a href="#"
-                    class="@if (isset($panel) && $panel == 'relatorios') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item" data-bs-toggle="modal" data-bs-target="#modalRelatorio">
+                    class="@if (isset($panel) && $panel == 'relatorios') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item"
+                    data-bs-toggle="modal" data-bs-target="#modalRelatorio">
                     <i class="fa fa-book" aria-hidden="true"></i>
                     <span>Relatórios</span>
                 </a>
@@ -56,27 +59,19 @@
 
             <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
                 <div class="container-fluid">
-                    <form class="d-flex gap-1" action="{{ route('logout') }}" method="POST">
+                    <form class="w-100" action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button class="btn btn-warning rounded" id="sidebarToggle">
-                            <i class="fas fa-bars"></i>
-                            <span>Menu</span>
-                        </button>
-                        <button type="submit" class="btn btn-danger rounded">
-                            <i class="fas fa-power-off"></i>
-                            <span>logaut</span>
-                        </button>
+                        <div class="d-flex gap-1 float-right">
+                            <button class="btn btn-outline-info rounded" id="sidebarToggle">
+                                <i class="fas fa-bars"></i>
+                                <span>Menu</span>
+                            </button>
+                            <button type="submit" class="btn btn-outline-danger rounded">
+                                <i class="fas fa-power-off"></i>
+                                <span>logaut</span>
+                            </button>
+                        </div>
                     </form>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation"><span
-                            class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-
-                        </ul>
-                    </div>
-
                 </div>
             </nav>
             @include('components.errors')
@@ -89,5 +84,6 @@
 @include('components.modal.relatorio')
 @section('script')
     @parent
+    <script src="{{ asset('js/toastr.force.js') }}"></script>
     <script src="{{ asset('js/page/relatorio.js') }}"></script>
 @endsection

@@ -37,7 +37,7 @@ class HomeController extends Controller
             return false;
         }
         if(Hash::check($request->password,Auth::user()->password)){
-            toastr()->warning("Senha são inválida", "Aviso");
+           toastr()->warning("Senha são inválida", "Aviso");
             return false;
         }
         return true;
