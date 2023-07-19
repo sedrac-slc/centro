@@ -26,4 +26,8 @@ class Medicamento extends Model
         return $this->hasMany(Item::class);
     }
 
+    public function retiradas(){
+        return $this->hasMany(Retirada::class);
+    }
+
 }

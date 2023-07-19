@@ -23,6 +23,11 @@ class RetiradaController extends Controller
         return view('pages.retirada', ["panel" => "retiradas", "retiradas" => $retiradas]);
     }
 
+    public function medicamento($id)
+    {
+        $retiradas = Retirada::where('medicamento_id',$id)->orderBy('id', 'desc')->paginate();
+        return view('pages.retirada', ["panel" => "retiradas", "retiradas" => $retiradas, "back" => route('medicamentos.index')]);
+    }
 
     public function store(RetiradaRequest $request)
     {
@@ -31,6 +36,7 @@ class RetiradaController extends Controller
                 toastr()->warning("Não tens permissão", "Permissão");
                 return redirect()->back();
             }
+
             DB::transaction(function () use ($request) {
                 $data = $request->all();
                 $data['user_id'] = Auth::user()->id;
@@ -50,9 +56,8 @@ class RetiradaController extends Controller
                 $data['quantidade_retirada'] = $data['quantidade_desejada'];
                 $data['quantidade_stock'] = $quantidade_stock;
 
-                if ($quantidade_inicial > 0) {
+                if (sizeof($medicamento->items) > 0 && $quantidade_inicial > 0) {
                     $retirada = Retirada::create($data);
-
                     $data['retirada_id'] = $retirada->id;
                     foreach ($medicamento->items as $item) {
                         $data['codigo'] = $item->codigo;
@@ -60,9 +65,11 @@ class RetiradaController extends Controller
                         ItemRetirada::create($data);
                         $item->delete();
                     }
+                  toastr()->success("Operação de criação realizada com sucesso", "Successo");
+                }else{
+                  toastr()->warning("Não foi encontrado nenhum item com válidade para ser retirado", "Aviso");
                 }
             });
-            toastr()->success("Operação de criação realizada com sucesso", "Successo");
             return redirect()->back();
         } catch (\Exception) {
             toastr()->error("Operação não foi realizada", "Erro");
@@ -70,35 +77,14 @@ class RetiradaController extends Controller
         }
     }
 
-    public function update(RetiradaRequest $request, $id)
-    {
-        try {
-            DB::transaction(function () use ($request, $id) {
-                $data = $request->all();
-                $data['updated_by'] = Auth::user()->id;
-                $retirada = Retirada::find($id);
-                $retirada->update($data);
-            });
-            toastr()->success("Operação de actualização realizada com sucesso", "Successo");
-            return redirect()->back();
-        } catch (\Exception) {
-            toastr()->error("Não foi possível a realização desta operação", "Erro");
+    public function items($id){
+        if(!UserUtil::isFarmaceutico()){
+            toastr()->warning("Não tens permissão", "Permissão");
             return redirect()->back();
         }
+        $items = ItemRetirada::where('retirada_id',$id)->orderBy('id','desc')->paginate();
+        return view('pages.item_retirados', ["panel"=>"items","items"=>$items]);
     }
 
-    public function destroy($id)
-    {
-        try {
-            DB::transaction(function () use ($id) {
-                $retirada = Retirada::find($id);
-                $retirada->delete();
-            });
-            toastr()->success("Operação de eliminação realizada com sucesso", "Successo");
-            return redirect()->back();
-        } catch (\Exception) {
-            toastr()->error("Não foi possível a eliminação desta operação", "Erro");
-            return redirect()->back();
-        }
-    }
+
 }

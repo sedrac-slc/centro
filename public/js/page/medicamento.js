@@ -8,6 +8,8 @@
 
     const btnUpItems = doc.querySelectorAll('.btn-user-tr');
     const btnDelItems = doc.querySelectorAll('.btn-user-del');
+    const btnItemTr = doc.querySelectorAll('.btn-item-tr');
+    const btnAddRetiradas = doc.querySelectorAll('.btn-retirada-tr');
 
     function modalOperaction(item, action=false){
         formUser.action = item.getAttribute('url');
@@ -50,7 +52,6 @@
         })
     });
 
-    const btnItemTr = doc.querySelectorAll('.btn-item-tr');
     btnItemTr.forEach(item => {
         item.addEventListener('click',(e)=>{
             const medicamentoKey = doc.querySelector("#medicamento_key");
@@ -58,6 +59,19 @@
             medicamentoKey.value = item.dataset.key;
             medicamentoNome.value = item.dataset.value;
             medicamentoNome.setAttribute('disabled','');
+        });
+    });
+
+    btnAddRetiradas.forEach(item => {
+        item.addEventListener('click',(e)=>{
+            const form = doc.querySelector("#form-retirada");
+            const medicamento = form.querySelector("#medicamento_nome");
+            const tableMedicamento = form.querySelector("#table-medicamento");
+            form.action = item.dataset.url;
+            form.querySelector("[name='_method']").setAttribute('value','POST');
+            medicamento.value = item.dataset.medicamento;
+            medicamento.setAttribute('disabled','');
+            tableMedicamento.innerHTML = `<input type="hidden" name="medicamento_id" value="${item.dataset.key}">`
         });
     });
 

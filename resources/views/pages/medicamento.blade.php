@@ -27,16 +27,16 @@
         <div><i class="fas fa-signature"></i><span>Nome</span></div>
     </th>
     <th>
-        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Quantidade(mínima)</span></div>
+        <div><i class="fa fa-list-ol"></i><span>Qtd(mínima)</span></div>
     </th>
     <th>
         <div><i class="fas fa-comment"></i><span>Descricao</span></div>
     </th>
-    <th>
-        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Quantidade(Stock)</span></div>
-    </th>
     <th colspan="2">
         <div><i class="fas fa-bars"></i><span>Items</span></div>
+    </th>
+    <th colspan="2">
+        <div><i class="fas fa-money-bill"></i><span>Retirada</span></div>
     </th>
     <th colspan="2">
         <div><i class="fas fa-tools"></i><span>Acções</span></div>
@@ -48,7 +48,6 @@
             <td>{{ $medicamento->nome }}</td>
             <td>{{ $medicamento->quantidade_minino_stock }}</td>
             <td>{{ $medicamento->descricao }}</td>
-            <td>{{ sizeof($medicamento->items) }}</td>
             <td>
                 <a href="#" class="text-primary rounded btn-sm btn-item-tr d-flex gap-1 align-items-center"
                     data-bs-toggle="modal" data-bs-target="#modalItem" data-value="{{ $medicamento->nome }}"
@@ -62,6 +61,24 @@
                     class="text-info rounded btn-sm btn-item-del d-flex gap-1 align-items-center">
                     <i class="fas fa-bars"></i>
                     <span>listar</span>
+                    <sup>{{ sizeof($medicamento->items) }}</sup>
+                </a>
+            </td>
+            <td>
+                <a href="#" class="text-primary rounded btn-sm btn-retirada-tr d-flex gap-1 align-items-center"
+                    data-bs-toggle="modal" data-bs-target="#modalRetirada"
+                    data-url="{{ route('retiradas.store') }}" method="POST"
+                    data-medicamento="{{$medicamento->nome}}"
+                    data-key="{{$medicamento->id}}">
+                    <i class="fas fa-plus"></i>
+                    <span>adicionar</span>
+                </a>
+            </td>
+            <td>
+                <a href="{{ route('retiradas.medicamento', $medicamento->id) }}" class="text-info rounded btn-sm btn-retirada-del d-flex gap-1 align-items-center">
+                    <i class="fas fa-bars"></i>
+                    <span>listar</span>
+                    <sup>{{ sizeof($medicamento->retiradas) }}</sup>
                 </a>
             </td>
             <td>
@@ -87,6 +104,7 @@
     @include('components.modal.medicamento')
     @include('components.modal.item', ['route' => route('items.store')])
     @include('components.modal.filtro.medicamento')
+    @include('components.modal.retirada')
 @endsection
 @section('script')
     @parent

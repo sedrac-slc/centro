@@ -9,6 +9,12 @@
     </style>
 @endsection
 @section('buttons')
+    @isset($back)
+        <a class="btn btn-outline-primary rounded" href="{{ $back }}">
+            <i class="fas fa-arrow-left"></i>
+            <span>voltar</span>
+        </a>
+    @endisset
     <button class="btn btn-outline-primary rounded" id="btn-add-retirada" data-bs-toggle="modal" data-bs-target="#modalRetirada"
         url="{{ route($panel . '.store') }}" method="POST" data-nome="{{ Auth::user()->name }}">
         <i class="fas fa-plus"></i>
@@ -20,13 +26,16 @@
         <div><i class="fas fa-user-md"></i><span>Medicamento</span></div>
     </th>
     <th>
-        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Quantidade(inicial)</span></div>
+        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Qtd(inicial)</span></div>
     </th>
     <th>
-        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Quantidade(Retirada)</span></div>
+        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Qtd(Retirada)</span></div>
     </th>
     <th>
-        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Quantidade(Stock)</span></div>
+        <div><i class="fa fa-list-ol" aria-hidden="true"></i><span>Qtd(Stock)</span></div>
+    </th>
+    <th>
+        <div><i class="fa fa-bars" aria-hidden="true"></i><span>Items(Retirados)</span></div>
     </th>
     <th colspan="2">
         <div><i class="fas fa-tools"></i><span>Acções</span></div>
@@ -34,13 +43,19 @@
 @endsection
 @section('tbody')
     @foreach ($retiradas as $retirada)
-        <tr style="align-retiradas: center;">
+        <tr style="text-align: center;">
             <td>{{ $retirada->medicamento->nome }}</td>
             <td>{{ $retirada->quantidade_inicial }}</td>
             <td>{{ $retirada->quantidade_retirada }}</td>
             <td>{{ $retirada->quantidade_stock }}</td>
             <td>
-                <a href="#" class="text-info rounded btn-sm btn-retirada-tr d-flex gap-1 align-retiradas-center"
+                <a href="{{ route('retiradas.items',$retirada->id) }}" class="text-primary rounded btn-sm btn-retirada-tr d-flex gap-1">
+                    <i class="fas fa-list"></i>
+                    <span>listar</span>
+                </a>
+            </td>
+            <td>
+                <a href="#" class="text-info rounded btn-sm btn-retirada-tr d-flex gap-1"
                     data-bs-toggle="modal" data-bs-target="#modalRetirada"
                     url="{{ route($panel . '.update', $retirada->id) }}" method="PUT">
                     <i class="fas fa-edit"></i>
@@ -48,7 +63,7 @@
                 </a>
             </td>
             <td>
-                <a href="#" class="text-danger rounded btn-sm btn-retirada-del d-flex gap-1 align-retiradas-center"
+                <a href="#" class="text-danger rounded btn-sm btn-retirada-del d-flex gap-1"
                     data-bs-toggle="modal" data-bs-target="#modalRetirada"
                     url="{{ route($panel . '.destroy', $retirada->id) }}" method="DELETE">
                     <i class="fas fa-times"></i>

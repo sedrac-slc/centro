@@ -21,6 +21,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(["auth"])->group(function(){
 
+    Route::get('retiradas/{id}/items',[RetiradaController::class,'items'])->name('retiradas.items');
+    Route::get('retiradas/{id}/medicamento', [RetiradaController::class, 'medicamento'])->name('retiradas.medicamento');
     Route::get('items/{id}/medicamento', [ItemController::class, 'medicamento'])->name('items.medicamento');
     Route::get('medicamentos/json', [MedicamentoController::class, 'json'])->name('medicamentos.json');
 
