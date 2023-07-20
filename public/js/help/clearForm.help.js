@@ -9,6 +9,15 @@ function clearFormControlActive(){
     });
 }
 
+function clearFormControlEmptyActive(){
+    clearFormControlActive();
+    const formControls = document.querySelectorAll('.form-control');
+    formControls.forEach((item)=>{
+        item.value="";
+     });
+}
+
+
 function clearFormControlActiveDifferentId(ids){
     const formControls = document.querySelectorAll('.form-control');
     formControls.forEach((item)=>{

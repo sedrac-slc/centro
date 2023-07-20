@@ -49,9 +49,10 @@
             <td>{{ $retirada->quantidade_retirada }}</td>
             <td>{{ $retirada->quantidade_stock }}</td>
             <td>
-                <a href="{{ route('retiradas.items',$retirada->id) }}" class="text-primary rounded btn-sm btn-retirada-tr d-flex gap-1">
+                <a class="text-primary rounded btn-sm d-flex gap-1" href="{{ route('retiradas.items',$retirada->id) }}">
                     <i class="fas fa-list"></i>
                     <span>listar</span>
+                    <sup>{{ sizeof($retirada->items) }}</sup>
                 </a>
             </td>
             <td>

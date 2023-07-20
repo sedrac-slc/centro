@@ -50,7 +50,7 @@
         formUser.action = btnUserAdd.getAttribute('url');
         doc.querySelector("[name='_method']").setAttribute('value','POST');
         openOrClosePassword(true);
-        clearFormControlActive();
+        clearFormControlEmptyActive();
     });
 
     btnUpItems.forEach(item =>{
