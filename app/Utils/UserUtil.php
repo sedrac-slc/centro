@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 class UserUtil{
 
     public static function isAdministrador(){
-        return Auth::user()->tipo == 'FARMACEUTICO';
+        return Auth::user()->tipo == 'ADNIBISTRADOR';
     }
 
     public static function genders(){
@@ -16,7 +16,7 @@ class UserUtil{
     }
 
     public static function tipos(){
-        return ['MEDICO' => 'Médico','FARMACEUTICO' => 'Farmacêutico'];
+        return ['PROFESSOR' => 'Professor','ALUNO' => 'Alunos','ADNIBISTRADOR' => 'Administrador'];
     }
     public static function keysGenders(){
         return array_keys(UserUtil::genders());

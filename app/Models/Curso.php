@@ -17,5 +17,8 @@ class Curso extends Model
         'updated_by'
     ];
 
+    public function curso_disciplina(){
+        return $this->hasMany(CursoDisciplina::class);
+    }
 
 }
