@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserUtil{
 
-    public static function isFarmaceutico(){
+    public static function isAdministrador(){
         return Auth::user()->tipo == 'FARMACEUTICO';
     }
 

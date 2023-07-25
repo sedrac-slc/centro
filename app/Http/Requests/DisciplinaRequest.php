@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RetiradaRequest extends FormRequest
+class DisciplinaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,8 @@ class RetiradaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => "nullable",
-            'medicamento_id' => "required",
-            'quantidade_inicial' => "nullable",
-            'quantidade_retirada' => "nullable",
-            'quantidade_stock' => "nullable",
+            'nome' => "required",
+            'descricao' => "required",
         ];
     }
 }
