@@ -1,4 +1,4 @@
-@extends('layouts.page', ['list' => $utilizadores])
+@extends('layouts.page', ['list' => $alunos])
 @php
     use App\Utils\UserUtil;
 @endphp
@@ -22,7 +22,7 @@
         <span>filtros</span>
     </button>
     @if (isset($search) && $search)
-        <a class="btn btn-outline-primary rounded" href="{{ route('utilizadores.index') }}">
+        <a class="btn btn-outline-primary rounded" href="{{ route('alunos.index') }}">
             <i class="fas fa-circle-notch"></i>
             <span>recarregar</span>
         </a>
@@ -55,12 +55,12 @@
     </th>
 @endsection
 @section('tbody')
-    @foreach ($utilizadores as $user)
+    @foreach ($alunos as $aluno->user)
         <tr style="align-items: center;" >
             <td class="text-center">
-                @if ($user->image)
-                    <a href="{{ url("storage/{$user->image}") }}">
-                        <img src="{{ url("storage/{$user->image}") }}" alt="foto perfil" class="rounded-circle"
+                @if ($aluno->user->image)
+                    <a href="{{ url("storage/{$aluno->user->image}") }}">
+                        <img src="{{ url("storage/{$aluno->user->image}") }}" alt="foto perfil" class="rounded-circle"
                             style="width: 40px; height: 40px;">
                     </a>
                 @else
@@ -70,32 +70,32 @@
                     </a>
                     <br />
                     <button class="text-primary bg-none btn-file d-flex gap-1 align-items-center" data-bs-toggle="modal" data-bs-target="#modalFile"
-                        url="{{ route('account.photo', $user->id) }}" method="PUT">
+                        url="{{ route('account.photo', $aluno->user->id) }}" method="PUT">
                         <i class="fas fa-plus"></i>
                         <span>adicionar</span>
                     </button>
                 @endif
             </td>
-            <td>{{ $user->name }}</td>
-            <td>{{ $user->email }}</td>
-            <td data-vd="{{ $user->gender }}">
-                {{ UserUtil::genders()[$user->gender] }}
+            <td>{{ $aluno->user->name }}</td>
+            <td>{{ $aluno->user->email }}</td>
+            <td data-vd="{{ $aluno->user->gender }}">
+            {{ UserUtil::genders()[$aluno->user->gender] }}
             </td>
-            <td>{{ $user->phone }}</td>
-            <td>{{ $user->birthday }}</td>
-            <td data-vd={{ $user->tipo }}>
-                {{ UserUtil::tipos()[$user->tipo] }}
+            <td>{{ $aluno->user->phone }}</td>
+            <td>{{ $aluno->user->birthday }}</td>
+            <td data-vd={{ $aluno->user->tipo }}>
+                {{ UserUtil::tipos()[$aluno->user->tipo] }}
             </td>
             <td>
                 <a href="#" class="text-info rounded btn-sm btn-user-tr d-flex gap-1 align-items-center" data-bs-toggle="modal"
-                    data-bs-target="#modalUser" url="{{ route($panel . '.update', $user->id) }}" method="PUT">
+                    data-bs-target="#modalUser" url="{{ route($panel . '.update', $aluno->user->id) }}" method="PUT">
                     <i class="fas fa-user-edit"></i>
                     <span>editar</span>
                 </a>
             </td>
             <td>
                 <a href="#" class="text-danger rounded btn-sm btn-user-del d-flex gap-1 align-items-center" data-bs-toggle="modal"
-                    data-bs-target="#modalUser" url="{{ route($panel . '.destroy', $user->id) }}" method="DELETE">
+                    data-bs-target="#modalUser" url="{{ route($panel . '.destroy', $aluno->user->id) }}" method="DELETE">
                     <i class="fas fa-user-times"></i>
                     <span>eliminar</span>
                 </a>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
-            $table->unique(['user_id','curso_id']);
+            $table->unique(['user_id','curso_disciplina_id']);
         });
     }
 
