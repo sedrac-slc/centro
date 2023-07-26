@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\Hash;
 class UserUtil{
 
     public static function isAdministrador(){
-        return Auth::user()->tipo == 'ADNIBISTRADOR';
+        if(Auth::user()->tipo != 'ADMINISTRADOR'){
+            toastr()->error("Permissão negada apenas os administradores tenhem permissão", "Aviso");
+            return false;
+        }
+        return true;
     }
 
     public static function genders(){
@@ -16,7 +20,7 @@ class UserUtil{
     }
 
     public static function tipos(){
-        return ['PROFESSOR' => 'Professor','ALUNO' => 'Alunos','ADNIBISTRADOR' => 'Administrador'];
+        return ['PROFESSOR' => 'Professor','ALUNO' => 'Alunos','ADMINISTRADOR' => 'Administrador'];
     }
     public static function keysGenders(){
         return array_keys(UserUtil::genders());

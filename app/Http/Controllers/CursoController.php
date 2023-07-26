@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CursoRequest;
 use App\Models\Curso;
+use App\Utils\MessageToastrUtil;
 use App\Utils\UserUtil;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,10 +29,10 @@ class CursoController extends Controller
                 $data['updated_by'] = Auth::user()->id;
                 Curso::create($data);
             });
-            toastr()->success("Operação de criação realizada com sucesso", "Successo");
+            MessageToastrUtil::success();
             return redirect()->back();
         } catch (\Exception) {
-            toastr()->error("Operação não foi realizada", "Erro");
+            MessageToastrUtil::error();
             return redirect()->back();
         }
     }
@@ -46,10 +47,10 @@ class CursoController extends Controller
                 $curso = Curso::find($id);
                 $curso->update($data);
             });
-            toastr()->success("Operação de actualização realizada com sucesso", "Successo");
+            MessageToastrUtil::success();
             return redirect()->back();
         } catch (\Exception) {
-            toastr()->error("Não foi possível a realização desta operação", "Erro");
+            MessageToastrUtil::error();
             return redirect()->back();
         }
     }
@@ -62,10 +63,10 @@ class CursoController extends Controller
                 $curso = Curso::find($id);
                 $curso->delete();
             });
-            toastr()->success("Operação de eliminação realizada com sucesso", "Successo");
+            MessageToastrUtil::success();
             return redirect()->back();
         } catch (\Exception) {
-            toastr()->error("Não foi possível a eliminação desta operação", "Erro");
+            MessageToastrUtil::error();
             return redirect()->back();
         }
     }

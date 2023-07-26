@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DisciplinaRequest;
-use App\Models\Curso;
 use App\Models\Disciplina;
+use App\Utils\MessageToastrUtil;
 use App\Utils\UserUtil;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +15,8 @@ class DisciplinaController extends Controller
 
     public function index(){
         if(!UserUtil::isAdministrador()) return redirect()->back();
-        $disciplinas = Curso::orderBy('id','desc')->paginate();
-        return view('pages.curso', ["panel"=>"disciplinas","disciplinas"=>$disciplinas]);
+        $disciplinas = Disciplina::orderBy('id','desc')->paginate();
+        return view('pages.disciplina', ["panel"=>"disciplinas","disciplinas"=>$disciplinas]);
     }
 
     public function store(DisciplinaRequest $request)
@@ -29,10 +29,10 @@ class DisciplinaController extends Controller
                 $data['updated_by'] = Auth::user()->id;
                 Disciplina::create($data);
             });
-            toastr()->success("Operação de criação realizada com sucesso", "Successo");
+            MessageToastrUtil::success();
             return redirect()->back();
         } catch (\Exception) {
-            toastr()->error("Operação não foi realizada", "Erro");
+            MessageToastrUtil::error();
             return redirect()->back();
         }
     }
@@ -47,10 +47,10 @@ class DisciplinaController extends Controller
                 $disciplina = Disciplina::find($id);
                 $disciplina->update($data);
             });
-            toastr()->success("Operação de actualização realizada com sucesso", "Successo");
+            MessageToastrUtil::success();
             return redirect()->back();
         } catch (\Exception) {
-            toastr()->error("Não foi possível a realização desta operação", "Erro");
+            MessageToastrUtil::error();
             return redirect()->back();
         }
     }
@@ -63,10 +63,10 @@ class DisciplinaController extends Controller
                 $disciplina = Disciplina::find($id);
                 $disciplina->delete();
             });
-            toastr()->success("Operação de eliminação realizada com sucesso", "Successo");
+            MessageToastrUtil::success();
             return redirect()->back();
         } catch (\Exception) {
-            toastr()->error("Não foi possível a eliminação desta operação", "Erro");
+            MessageToastrUtil::error();
             return redirect()->back();
         }
     }

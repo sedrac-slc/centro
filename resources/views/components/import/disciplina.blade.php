@@ -1,4 +1,4 @@
-<div class="row mt-1">
+<div class="row">
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Nome:',
@@ -8,18 +8,6 @@
             'placeholder' => 'Digita o nome do medicamento',
             'require' => true,
             'value' => old('nome'),
-        ])
-    </div>
-    <div class="col-md-6">
-        @include('components.input', [
-            'label' => 'Quantidade mínimo:',
-            'icon' => 'fas fa-signature',
-            'type' => 'number',
-            'name' => 'quantidade_minino_stock',
-            'placeholder' => 'Digita a quantidade mínima',
-            'require' => true,
-            'value' => old('quantidade_minino_stock'),
-            'min' => 0,
         ])
     </div>
 </div>
