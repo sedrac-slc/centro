@@ -24,6 +24,10 @@ class CursoRequest extends FormRequest
         return [
             'nome' => "required",
             'descricao' => "required",
+            'data_termino' => "required",
+            'hora_entrada' => "required",
+            'hora_termino' => "required",
+            'sala' => 'nullable'
         ];
     }
 }

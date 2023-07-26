@@ -12,8 +12,8 @@
     toastAlerts.forEach(item => {
         const toast = document.querySelector('.'+item.alert);
         if(toast){
-            if(!toast.classList.contains(item.background))
-                  toast.classList.add(item.background);
+            // if(!toast.classList.contains(item.background))
+            //       toast.classList.add(item.background);
         }
     })
 

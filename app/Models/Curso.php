@@ -13,12 +13,21 @@ class Curso extends Model
         'id',
         'nome',
         'descricao',
+        'data_inicio',
+        'data_termino',
+        'hora_entrada',
+        'hora_termino',
+        'sala',
         'created_by',
         'updated_by'
     ];
 
     public function curso_disciplina(){
         return $this->hasMany(CursoDisciplina::class);
+    }
+
+    public function alunos(){
+        return $this->hasMany(Aluno::class);
     }
 
 }

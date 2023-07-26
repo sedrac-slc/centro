@@ -13,11 +13,17 @@ return new class extends Migration
     {
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->unique();
-            $table->string('descricao')->unique();
-           $table->bigInteger('created_by')->nullable();
+            $table->string('nome');
+            $table->string('descricao');
+            $table->data('data_inicio');
+            $table->data('data_termino');
+            $table->time('hora_entrada');
+            $table->time('hora_termino');
+            $table->integer('sala')->nullable();
+            $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
+            $table->unique(['nome','data_inicio','data_termino','hora_entrada','hora_termino']);
         });
     }
 

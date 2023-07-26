@@ -60,4 +60,8 @@ class User extends Authenticatable
         return $this->hasMany(Retirada::class,'created_by');
     }
 
+    public function alunos(){
+        return $this->hasMany(Aluno::class);
+    }
+
 }
