@@ -34,7 +34,7 @@ class UserUtil{
         return rand(0, sizeof($array) - 1);
     }
 
-    public static function generatorFaker(){
+    public static function generatorFaker($tipo=null){
         $genders = UserUtil::keysGenders();
         $indexGender = UserUtil::indexRandom($genders);
         $gender = $genders[$indexGender];
@@ -47,7 +47,7 @@ class UserUtil{
             'email'  => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'gender' => $genders[$indexGender],
-            'tipo' => $tipos[$indexTipo],
+            'tipo' => $tipo ?? $tipos[$indexTipo],
             'birthday' => fake()->date(),
             'password' => Hash::make("password")
         ];

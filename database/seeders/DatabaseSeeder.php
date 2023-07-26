@@ -2,81 +2,62 @@
 
 namespace Database\Seeders;
 
-use App\Models\Item;
-use App\Models\Medicamento;
-use App\Models\Retirada;
+use App\Models\Curso;
+use App\Models\Disciplina;
 use App\Models\User;
-use App\Utils\ItemUtil;
-use App\Utils\MedicamentoUtil;
+use App\Utils\CursoUtil;
+use App\Utils\DisciplinaUtil;
 use App\Utils\UserUtil;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
 
+    private function filterUserTipo($users, $tipo) {
+        return array_filter($users, function($user) use ($tipo) {
+            return $user->tipo == $tipo;
+        });
+    }
+
+    private function storeObject($obj, $tipo, $user){
+        return $obj.$tipo.$user;
+    }
+
+    private function storeArrayObject($array, $tipo, $user){
+        $objs = [];
+        foreach($array as $obj){
+            $objs[] = $this->storeObject($obj, $tipo, $user);
+        }
+        return $objs;
+    }
+
+    private function randomObject($array){
+        $index = rand(0, sizeof($array) - 1);
+        return $array[$index];
+    }
+
     public function run(): void
     {
-        $tam = 15;
         $users = [];
+        $cursos = [];
+        $disciplinas = [];
+        $tam = rand(20, 30);
+
+        $admin = User::create(UserUtil::generatorFaker("ADMINISTRADOR"));
+
         for($i=0; $i < $tam; $i++){
             $users[] = User::create(UserUtil::generatorFaker());
+            $cursos[] = Curso::create(CursoUtil::generatorFaker($admin));
+            $disciplinas[] = Disciplina::create(DisciplinaUtil::generatorFaker($admin));
         }
 
-        $farmaceuticos = [];
-        for($i=0; $i < $tam; $i++){
-            if($users[$i]->tipo == "FARMACEUTICO"){
-                $farmaceuticos[] = $users[$i];
-            }
-        }
+        $alunos = $this->filterUserTipo($users,"ALUNO");
+        $professores = $this->filterUserTipo($users,"PROFESSOR");
+        $administradores = $this->filterUserTipo($users, "ADMINISTRADOR");
 
-        $medicamentos = [];
-        $tam_fuc = sizeof($farmaceuticos);
-        for($i=0; $i < $tam; $i++){
-            $index = rand(0, $tam_fuc-1);
-            $medicamentos[] = Medicamento::create(MedicamentoUtil::generatorFaker($farmaceuticos[$index]));
-        }
+        $this->storeArrayObject($alunos,"ALUNO",$this->randomObject($administradores));
 
-        $tam_med = sizeof($medicamentos);
-        for($i=0; $i < $tam; $i++){
-            $indexFuc = rand(0, $tam_fuc-1);
-            $indexMed = rand(0, $tam_med-1);
-            $items[] = Item::create(ItemUtil::generatorFaker((object)[
-                "user_id" => $farmaceuticos[$indexFuc]->id,
-                "medicamento_id" => $medicamentos[$indexMed]->id
-            ]));
-        }
-
-        // $tam_aux = $tam;
-        // while($tam > 0){
-
-        //     $index_medicamento = rand(0, $tam_aux-1);
-        //     $index_farmaceutico = rand(0, $tam_fuc-1);
-        //     $medicamento = $medicamentos[$index_medicamento];
-        //     $farmaceutico = $farmaceuticos[$index_farmaceutico];
-        //     $quantidade_retirada = rand(0,$medicamento->stock);
-
-        //     if($quantidade_retirada < $medicamento->stock){
-        //         $quantidade_inicial = $medicamento->stock;
-        //         $quantidade_stock = $quantidade_inicial - $quantidade_retirada;
-        //         $medicamento->stock = $quantidade_stock;
-        //         if($medicamento->stock != $quantidade_inicial){
-        //             $medicamento->update([
-        //                 'quantidade_stock' => $medicamento->stock
-        //             ]);
-        //             Retirada::create((object)[
-        //                 'user_id' => $farmaceutico->user_id,
-        //                 'medicamento_id' => $medicamento->id,
-        //                 'quantidade_inicial' => $quantidade_inicial,
-        //                 'quantidade_retirada' => $quantidade_retirada,
-        //                 'quantidade_stock' => $medicamento->stock,
-        //                 'created_by' => $farmaceutico->user_id,
-        //                 'updated_by' => $farmaceutico->user_id
-        //             ]);
-        //          $tam--;
-        //         }
-        //     }
-
-        // }
+        $this->storeArrayObject($professores,"PROFESSOR",$this->randomObject($administradores));
 
     }
 
