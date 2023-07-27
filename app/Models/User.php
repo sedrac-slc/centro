@@ -64,4 +64,8 @@ class User extends Authenticatable
         return $this->hasMany(Aluno::class);
     }
 
+    public function __toString(){
+        return "User(id={$this->id},name={$this->name},tipo={$this->tipo})";
+    }
+
 }

@@ -29,4 +29,5 @@ class Aluno extends Model
         return $this->hasMany(Notas::class);
     }
 
+
 }

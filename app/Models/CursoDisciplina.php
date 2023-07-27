@@ -17,6 +17,8 @@ class CursoDisciplina extends Model
         'updated_by'
     ];
 
+    protected $table = "curso_disciplina";
+
     public function curso(){
         return $this->belongsTo(Curso::class);
     }

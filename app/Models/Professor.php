@@ -17,6 +17,8 @@ class Professor extends Model
         'updated_by'
     ];
 
+    protected $table = "professores";
+
     public function user(){
         return $this->belongsTo(User::class);
     }
