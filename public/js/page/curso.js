@@ -26,6 +26,7 @@
             let inptObj = doc.querySelector(`[name='${obj.name}']`);
             obj.textarea ? inptObj.innerHTML= obj.value.trim() : inptObj.setAttribute("value", obj.value.trim());
             obj.readonly ? inptObj.setAttribute('disabled','') : inptObj.removeAttribute('disabled');
+            action ? inptObj.setAttribute('disabled','') : inptObj.removeAttribute('disabled');
         });
     }
 
