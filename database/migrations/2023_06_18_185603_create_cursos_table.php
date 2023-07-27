@@ -23,7 +23,6 @@ return new class extends Migration
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
-            //$table->unique(['nome','data_inicio','data_termino','hora_entrada','hora_termino']);
         });
     }
 
