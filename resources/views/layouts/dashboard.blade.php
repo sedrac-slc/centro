@@ -25,9 +25,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
+                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            <span>Página incial</span>
+                            <span>Perfil</span>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
@@ -66,10 +66,6 @@
                             @include('menu.admin')
                     @endswitch
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Procurar</button>
-                </form>
             </div>
         </div>
     </nav>

@@ -7,16 +7,6 @@
         <i class="fas fa-user-plus"></i>
         <span>adicionar</span>
     </a>
-    <button class="btn btn-outline-primary rounded" data-bs-toggle="modal" data-bs-target="#modalUtilizador">
-        <i class="fas fa-filter"></i>
-        <span>filtros</span>
-    </button>
-    @if (isset($search) && $search)
-        <a class="btn btn-outline-primary rounded" href="{{ route('utilizadores.index') }}">
-            <i class="fas fa-circle-notch"></i>
-            <span>recarregar</span>
-        </a>
-    @endif
 @endsection
 @section('thead')
     <th>

@@ -37,6 +37,16 @@
                     <input type="search" value="{{ $aluno_nome }}" id="search-aluno" class="form-control"
                         @if ($aluno_disabled) disabled @endif>
                 </div>
+                @isset($pagamento->id)
+                    <div class="mb-2">
+                        <label for="">Curso</label>
+                        <input type="search" value="{{ $pagamento->aluno->curso->nome }}" id="" class="form-control" disabled>
+                    </div>
+                    <div class="mb-2">
+                        <label for="">Preço</label>
+                        <input type="search" value="{{ $pagamento->aluno->curso->preco }}" id="" class="form-control" disabled>
+                    </div>
+                @endisset
                 @isset($aluno->id)
                     <div class="mb-2">
                         <label for="">Curso</label>

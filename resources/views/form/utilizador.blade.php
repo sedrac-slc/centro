@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @php
     $is_edit = isset($user);
-    $data = ['rounded' => true];
+    $data = ['rounded' => true, 'user_tipo' => 'ADMINISTRADOR'];
     $method = $is_edit ? 'PUT' : 'POST';
     if ($is_edit) {
         $data['password_hidden'] = true;
