@@ -24,7 +24,7 @@ class Professor extends Model
     }
 
     public function curso_disciplina(){
-        return $this->hasMany(CursoDisciplina::class);
+        return $this->hasMany(CursoDisciplina::class,'id','curso_disciplina_id');
     }
 
 }

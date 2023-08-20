@@ -1,89 +1,85 @@
 @extends('layouts.template')
 @php
     use App\Utils\UserUtil;
-    $isFarmaceutico = UserUtil::isFarmaceutico();
+    $isAdministrador = UserUtil::isAdministrador(false);
 @endphp
 @section('body', 'bg-light')
 @section('css')
     @parent
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}" />
+    <style>
+        .btn-none,
+        .bg-none {
+            border: none;
+            background: none;
+        }
+    </style>
 @endsection
 @section('content')
-    <div class="d-flex" id="wrapper">
-        <div class="border-end bg-primary text-white position-relative" id="sidebar-wrapper">
-            <div class="sidebar-heading">
-                <div class="text-center">
-                    <div>Centro médico</div>
-                    <div>São josé</div>
-                </div>
-            </div>
-            <div class="list-group list-group-flush">
-                <a href="{{ route('home') }}"
-                    class="@if (isset($panel) && $panel == 'account') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Conta</span>
-                </a>
-                <a @if ($isFarmaceutico) href="{{ route('utilizadores.index') }}" @else disabled @endif
-                    class="@if (isset($panel) && $panel == 'utilizadores') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item @if (!$isFarmaceutico) disabled @endif">
-                    <i class="fas fa-users"></i>
-                    <span>Utilizadores</span>
-                </a>
-                <a @if ($isFarmaceutico) href="{{ route('medicamentos.index') }}" @else disabled @endif
-                    class="@if (isset($panel) && $panel == 'medicamentos') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item @if (!$isFarmaceutico) disabled @endif">
-                    <i class="fa fa-user-md" aria-hidden="true"></i>
-                    <span>Medicamentos</span>
-                </a>
-                <a @if ($isFarmaceutico) href="{{ route('items.index') }}" @else disabled @endif
-                    class="@if (isset($panel) && $panel == 'items') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item @if (!$isFarmaceutico) disabled @endif">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                    <span>Items</span>
-                </a>
-                <a @if ($isFarmaceutico) href="{{ route('retiradas.index') }}" @else disabled @endif
-                    class="@if (isset($panel) && $panel == 'retiradas') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item @if (!$isFarmaceutico) disabled @endif">
-                    <i class="fa fa-money-bill" aria-hidden="true"></i>
-                    <span>Retiradas</span>
-                </a>
-                <a href="#"
-                    class="@if (isset($panel) && $panel == 'relatorios') list-group-item-action @else list-group-item @endif p-3 bg-primary text-white nav-item"
-                    data-bs-toggle="modal" data-bs-target="#modalRelatorio">
-                    <i class="fa fa-book" aria-hidden="true"></i>
-                    <span>Relatórios</span>
-                </a>
-            </div>
-            <div class="div-logout">
-
-            </div>
-        </div>
-
-        <div id="page-content-wrapper">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-                <div class="container-fluid">
-                    <form class="w-100" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <div class="d-flex gap-1 float-right">
-                            <button class="btn btn-outline-info rounded" id="sidebarToggle">
-                                <i class="fas fa-bars"></i>
-                                <span>Menu</span>
-                            </button>
-                            <button type="submit" class="btn btn-outline-danger rounded">
-                                <i class="fas fa-power-off"></i>
-                                <span>logaut</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </nav>
-            @include('components.errors')
-            <div class="container-fluid">
-                @yield('painel')
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Centro</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <i class="fa fa-home" aria-hidden="true"></i>
+                            <span>Página incial</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <span>Conta</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Nome: {{ short_name(auth()->user()->name) }}</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li class="position-relative">
+                                <div class="dropdown-item float-right">
+                                    <form class="" action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn-none text-danger rounded">
+                                            <i class="fas fa-power-off"></i>
+                                            <span>Sair</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    @switch(Auth::user()->tipo)
+                        @case("PROFESSOR")
+                            @include('menu.professor')
+                        @break
+                        @case("ALUNO")
+                            @include('menu.aluno')
+                        @break
+                        @default
+                            @include('menu.admin')
+                    @endswitch
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Procurar</button>
+                </form>
             </div>
         </div>
-    </div>
+    </nav>
+    <section class="m-4 border rounded" id="wrapper">
+        @include('components.message')
+        @include('components.errors')
+        @yield('painel')
+    </section>
 @endsection
-@include('components.modal.relatorio')
+
 @section('script')
     @parent
-    <script src="{{ asset('js/toastr.force.js') }}"></script>
-    <script src="{{ asset('js/page/relatorio.js') }}"></script>
 @endsection

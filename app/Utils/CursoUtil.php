@@ -9,6 +9,7 @@ class CursoUtil{
         return [
             'nome' => fake()->name(),
             'descricao' => fake()->text(),
+            'preco' => fake()->randomFloat(null,10000,85000),
             'data_inicio' => fake()->date(),
             'data_termino'=> fake()->date(),
             'hora_entrada'=> fake()->time(),

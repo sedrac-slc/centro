@@ -20,6 +20,11 @@ class UtilizadorController extends Controller
         return view('pages.utilizador', ["panel"=>"utilizadores","utilizadores"=>$utilizadores]);
     }
 
+    public function create(){
+        if(!UserUtil::isAdministrador()) return redirect()->back();
+        return view('form.utilizador', ["panel"=>"utilizadores","action"=>route('utilizadores.store')]);
+    }
+
     public function store(UtilizadorRequest $request){
         $request->validate([
             "tipo" => "required",
@@ -40,11 +45,17 @@ class UtilizadorController extends Controller
                User::create($data);
             });
             MessageToastrUtil::success();
-            return redirect()->back();
+            return redirect()->route('utilizadores.index');
         } catch (\Exception) {
             MessageToastrUtil::error();
             return redirect()->back();
         }
+    }
+
+    public function edit($id){
+        if(!UserUtil::isAdministrador()) return redirect()->back();
+        $user = User::find($id);
+        return view('form.utilizador', ["panel"=>"utilizadores","user"=>$user,"action"=>route('utilizadores.update',$id)]);
     }
 
     public function update(UtilizadorRequest $request, $id){
@@ -58,7 +69,7 @@ class UtilizadorController extends Controller
                 $utilizador->update($data);
             });
             MessageToastrUtil::success();
-            return redirect()->back();
+            return redirect()->route('utilizadores.index');
         } catch (\Exception) {
             MessageToastrUtil::error();
             return redirect()->back();

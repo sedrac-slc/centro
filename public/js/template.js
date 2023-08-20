@@ -1,31 +1,5 @@
 (function () {
     "use strict";
-    const btnViewHide = document.querySelector("#btn-view-hide");
-
-    if (btnViewHide) {
-        btnViewHide.addEventListener("click", function (e) {
-            document.querySelectorAll(".tb-view-action").forEach((item) => {
-                item.classList.toggle("d-none");
-            });
-
-            let icon = btnViewHide.querySelector("svg");
-            let span = btnViewHide.querySelector("span");
-            let obj = document.querySelector(".tb-view-action.d-none");
-            if (obj) {
-                if (icon.classList.contains("fa-eye-slash")) {
-                    icon.classList.remove("fa-eye-slash");
-                    icon.classList.add("fa-eye");
-                }
-                span.innerHTML = "mostra";
-            } else {
-                if (icon.classList.contains("fa-eye")) {
-                    icon.classList.remove("fa-eye");
-                    icon.classList.add("fa-eye-slash");
-                }
-                span.innerHTML = "oculta";
-            }
-        });
-    }
 
     document.querySelectorAll(".tooltip-demo").forEach(function (tooltip) {
         new bootstrap.Tooltip(tooltip, {

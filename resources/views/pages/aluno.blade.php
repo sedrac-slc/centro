@@ -4,29 +4,15 @@
 @endphp
 @section('css')
     @parent
-    <link rel="stylesheet" href="{{ asset('css/page/home.css') }}" />
     <style>
-        tbody td:not(:first-child) {
-            padding-top: 1rem;
-        }
+        .text-orange{color: orangered;}
     </style>
 @endsection
 @section('buttons')
-    <button class="btn btn-outline-primary rounded" id="btn-add-user" data-bs-toggle="modal" data-bs-target="#modalUser"
-        url="{{ route($panel . '.store') }}" method="POST">
+    <a class="btn btn-outline-primary rounded" href="{{ route($panel . '.create') }}" >
         <i class="fas fa-user-plus"></i>
         <span>adicionar</span>
-    </button>
-    <button class="btn btn-outline-primary rounded" data-bs-toggle="modal" data-bs-target="#modalUtilizador">
-        <i class="fas fa-filter"></i>
-        <span>filtros</span>
-    </button>
-    @if (isset($search) && $search)
-        <a class="btn btn-outline-primary rounded" href="{{ route('alunos.index') }}">
-            <i class="fas fa-circle-notch"></i>
-            <span>recarregar</span>
-        </a>
-    @endif
+    </a>
 @endsection
 @section('thead')
     <th>
@@ -34,6 +20,12 @@
     </th>
     <th>
         <div><i class="fas fa-signature"></i><span>Nome</span></div>
+    </th>
+    <th>
+        <div><i class="fas fa-chalkboard"></i><span>Curso(Nome)</span></div>
+    </th>
+    <th>
+        <div><i class="fas fa-chalkboard"></i><span>Curso(Preço)</span></div>
     </th>
     <th>
         <div><i class="fas fa-envelope"></i><span>Email</span></div>
@@ -45,17 +37,23 @@
         <div><i class="fas fa-phone"></i><span>Telefone</span></div>
     </th>
     <th>
-        <div><i class="fas fa-calendar"></i><span>Data nascimnto</span></div>
+        <div><i class="fas fa-calendar"></i><span>Data nascimento</span></div>
     </th>
     <th>
-        <div><i class="fas fa-user-secret"></i><span>Tipo</span></div>
+        <div><i class="fas fa-clipboard"></i><span>Curso(Pago)</span></div>
+    </th>
+    <th colspan="2">
+        <div><i class="fas fa-money-bill"></i><span>Pagamento</span></div>
+    </th>
+    <th colspan="2">
+        <div><i class="fas fa-chalkboard"></i><span>Curso(Acções)</span></div>
     </th>
     <th colspan="2">
         <div><i class="fas fa-tools"></i><span>Acções</span></div>
     </th>
 @endsection
 @section('tbody')
-    @foreach ($alunos as $aluno->user)
+    @foreach ($alunos as $aluno)
         <tr style="align-items: center;" >
             <td class="text-center">
                 @if ($aluno->user->image)
@@ -77,25 +75,50 @@
                 @endif
             </td>
             <td>{{ $aluno->user->name }}</td>
+            <td>{{ $aluno->curso->nome }}</td>
+            <td>{{ $aluno->curso->preco }}</td>
             <td>{{ $aluno->user->email }}</td>
             <td data-vd="{{ $aluno->user->gender }}">
             {{ UserUtil::genders()[$aluno->user->gender] }}
             </td>
             <td>{{ $aluno->user->phone }}</td>
             <td>{{ $aluno->user->birthday }}</td>
-            <td data-vd={{ $aluno->user->tipo }}>
-                {{ UserUtil::tipos()[$aluno->user->tipo] }}
+            <td>{{ $aluno->is_pago ? "TERMINADO" : "NÃO TERMINADO" }}</td>
+            <td>
+                <a href="{{ route('alunos.pagamento.add',$aluno->id) }}" class="text-orange rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
+                    <i class="fas fa-plus"></i>
+                    <span>adicionar</span>
+                </a>
             </td>
             <td>
-                <a href="#" class="text-info rounded btn-sm btn-user-tr d-flex gap-1 align-items-center" data-bs-toggle="modal"
-                    data-bs-target="#modalUser" url="{{ route($panel . '.update', $aluno->user->id) }}" method="PUT">
+                <a href="{{ route('alunos.pagamento.list',$aluno->id) }}" class="text-warning rounded btn-sm btn-user-del d-flex gap-1 align-items-center">
+                    <i class="fas fa-list"></i>
+                    <span>listar</span>
+                    <sup>{{ sizeof($aluno->pagamentos) }}</sup>
+                </a>
+            </td>
+            <td>
+                <a href="{{ route('alunos.curso.add',$aluno->id) }}" class="text-primary rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
+                    <i class="fas fa-plus"></i>
+                    <span>adicionar</span>
+                </a>
+            </td>
+            <td>
+                <a href="{{ route('alunos.curso.list',$aluno->id) }}" class="text-success rounded btn-sm btn-user-del d-flex gap-1 align-items-center">
+                    <i class="fas fa-list"></i>
+                    <span>listar</span>
+                    <sup>{{ count_aluno($aluno->user->id) }}</sup>
+                </a>
+            </td>
+            <td>
+                <a href="{{ route($panel . '.edit', $aluno->id) }}" class="text-info rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
                     <i class="fas fa-user-edit"></i>
                     <span>editar</span>
                 </a>
             </td>
             <td>
-                <a href="#" class="text-danger rounded btn-sm btn-user-del d-flex gap-1 align-items-center" data-bs-toggle="modal"
-                    data-bs-target="#modalUser" url="{{ route($panel . '.destroy', $aluno->user->id) }}" method="DELETE">
+                <a href="#" class="text-danger rounded btn-sm btn-del d-flex gap-1 align-items-center" data-bs-toggle="modal"
+                    data-bs-target="#modalDelete" url="{{ route($panel . '.destroy', $aluno->id) }}" method="DELETE">
                     <i class="fas fa-user-times"></i>
                     <span>eliminar</span>
                 </a>
@@ -104,13 +127,14 @@
     @endforeach
 @endsection
 @section('modal')
-    @include('components.modal.utilizador', ['type' => $panel])
     @include('components.modal.fileupload')
+    @include('components.modal.delete',[
+        'title' => "Eliminar Aluno",
+        'message' => "Tens certeza que desejas eliminar este aluno?"
+    ])
 @endsection
 @section('script')
     @parent
-    <script src="{{ asset('js/help/clearForm.help.js') }}"></script>
-    <script src="{{ asset('js/help/select.help.js') }}"></script>
     <script src="{{ asset('js/fileupload.js') }}"></script>
-    <script src="{{ asset('js/page/utilizador.js') }}"></script>
+    <script src="{{ asset('js/help/delete.js') }}"></script>
 @endsection

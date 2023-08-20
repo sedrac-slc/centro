@@ -1,32 +1,19 @@
 @extends('layouts.page', ['list' => $cursos])
-@section('css')
-    @parent
-    <link rel="stylesheet" href="{{ asset('css/page/home.css') }}" />
-    <style>
-        tbody td:not(:first-child) {
-            padding-top: 1rem;
-        }
-    </style>
-@endsection
 @section('buttons')
-    @isset($back)
-        <a class="btn btn-outline-primary rounded" href="{{ $back }}">
-            <i class="fas fa-arrow-left"></i>
-            <span>voltar</span>
-        </a>
-    @endisset
-    <button class="btn btn-outline-primary rounded" id="btn-add-curso" data-bs-toggle="modal" data-bs-target="#modalCurso"
-        url="{{ route($panel . '.store') }}" method="POST" data-nome="{{ Auth::user()->name }}">
+    <a class="btn btn-outline-primary rounded" href="{{ route($panel . '.create') }}">
         <i class="fas fa-plus"></i>
         <span>adicionar</span>
-    </button>
+    </a>
 @endsection
 @section('thead')
     <th>
         <div><i class="fas fa-signature"></i><span>Nome</span></div>
     </th>
     <th>
-        <div><i class="fa fa-commet"></i><span>Descrição</span></div>
+        <div><i class="fas fa-money-bill"></i><span>Preço</span></div>
+    </th>
+    <th>
+        <div><i class="fa fa-comment"></i><span>Descrição</span></div>
     </th>
     <th>
         <div><i class="fa fa-calendar"></i><span>Data(Começo)</span></div>
@@ -38,10 +25,13 @@
         <div><i class="fa fa-clock"></i><span>Hora(Começo)</span></div>
     </th>
     <th>
-        <div><i class="fa fa-clock-times"></i><span>Hora(Termino)</span></div>
+        <div><i class="fas fa-history"></i><span>Hora(Termino)</span></div>
     </th>
     <th>
-        <div><i class="fa fa-home"></i><span>Sala</span></div>
+        <div><i class="fab fa-buromobelexperte"></i><span>Sala</span></div>
+    </th>
+    <th colspan="2">
+        <div><i class="fas fa-clipboard"></i><span>Disciplina</span></div>
     </th>
     <th colspan="2">
         <div><i class="fas fa-tools"></i><span>Acções</span></div>
@@ -51,6 +41,7 @@
     @foreach ($cursos as $curso)
         <tr style="text-align: center;">
             <td>{{ $curso->nome }}</td>
+            <td>{{ $curso->preco }}</td>
             <td>{{ $curso->descricao }}</td>
             <td>{{ $curso->data_inicio }}</td>
             <td>{{ $curso->data_termino }}</td>
@@ -58,17 +49,31 @@
             <td>{{ $curso->hora_termino }}</td>
             <td>{{ $curso->sala }}</td>
             <td>
-                <a href="#" class="text-info rounded btn-sm btn-curso-tr d-flex gap-1"
-                    data-bs-toggle="modal" data-bs-target="#modalcurso"
-                    url="{{ route($panel . '.update', $curso->id) }}" method="PUT">
+                <a href="{{ route('cursos.disciplina.add', $curso->id) }}"
+                    class="text-warning rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
+                    <i class="fas fa-plus"></i>
+                    <span>adicionar</span>
+                </a>
+            </td>
+            <td>
+                <a href="{{ route('cursos.disciplina.list', $curso->id) }}"
+                    class="text-success rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
+                    <i class="fas fa-bars"></i>
+                    <span>listar</span>
+                    <sup>{{ sizeof($curso->disciplinas) }}</sup>
+                </a>
+            </td>
+            <td>
+                <a href="{{ route($panel . '.edit', $curso->id) }}"
+                    class="text-info rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
                     <i class="fas fa-edit"></i>
                     <span>editar</span>
                 </a>
             </td>
             <td>
-                <a href="#" class="text-danger rounded btn-sm btn-curso-del d-flex gap-1"
-                    data-bs-toggle="modal" data-bs-target="#modalcurso"
-                    url="{{ route($panel . '.destroy', $curso->id) }}" method="DELETE">
+                <a href="#" class="text-danger rounded btn-sm btn-del d-flex gap-1 align-items-center"
+                    data-bs-toggle="modal" data-bs-target="#modalDelete" url="{{ route($panel . '.destroy', $curso->id) }}"
+                    method="DELETE">
                     <i class="fas fa-times"></i>
                     <span>eliminar</span>
                 </a>
@@ -77,10 +82,13 @@
     @endforeach
 @endsection
 @section('modal')
-    @include('components.modal.curso')
+    @include('components.modal.delete',[
+        'title' => "Eliminar curso",
+        'message' => "Tens certeza que desejas eliminar este curso?"
+    ])
 @endsection
 @section('script')
     @parent
     <script src="{{ asset('js/help/clearForm.help.js') }}"></script>
-    <script src="{{ asset('js/page/curso.js') }}"></script>
+    <script src="{{ asset('js/help/delete.js') }}"></script>
 @endsection

@@ -9,7 +9,7 @@
 @section('content')
 <nav class="navbar bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand text-white" href="#">Farmacia</a>
+      <a class="navbar-brand text-white" href="#">Centro</a>
     </div>
   </nav>
     <form method="POST" action="{{ route('login') }}" class="w-50 bg-white mt-3 m-auto border rounded p-3">

@@ -21,9 +21,9 @@ class AlunoRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'user_id' => "required",
-            'curso_id' => "required"
-        ];
+        $roles = (new UtilizadorRequest())->rules();
+        $roles['curso_id'] = "nullable";
+        $roles['is_terminado'] = "nullable";
+        return $roles;
     }
 }

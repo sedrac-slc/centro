@@ -2,31 +2,11 @@
 @php
     use App\Utils\UserUtil;
 @endphp
-@section('css')
-    @parent
-    <link rel="stylesheet" href="{{ asset('css/page/home.css') }}" />
-    <style>
-        tbody td:not(:first-child) {
-            padding-top: 1rem;
-        }
-    </style>
-@endsection
 @section('buttons')
-    <button class="btn btn-outline-primary rounded" id="btn-add-user" data-bs-toggle="modal" data-bs-target="#modalUser"
-        url="{{ route($panel . '.store') }}" method="POST">
+    <a class="btn btn-outline-primary rounded" href="{{ route($panel . '.create') }}">
         <i class="fas fa-user-plus"></i>
         <span>adicionar</span>
-    </button>
-    <button class="btn btn-outline-primary rounded" data-bs-toggle="modal" data-bs-target="#modalUtilizador">
-        <i class="fas fa-filter"></i>
-        <span>filtros</span>
-    </button>
-    @if (isset($search) && $search)
-        <a class="btn btn-outline-primary rounded" href="{{ route('professors.index') }}">
-            <i class="fas fa-circle-notch"></i>
-            <span>recarregar</span>
-        </a>
-    @endif
+    </a>
 @endsection
 @section('thead')
     <th>
@@ -34,6 +14,12 @@
     </th>
     <th>
         <div><i class="fas fa-signature"></i><span>Nome</span></div>
+    </th>
+    <th>
+        <div><i class="fas fa-chalkboard"></i><span>Curso(Nome)</span></div>
+    </th>
+    <th>
+        <div><i class="fas fa-clipboard"></i><span>Disciplina</span></div>
     </th>
     <th>
         <div><i class="fas fa-envelope"></i><span>Email</span></div>
@@ -45,18 +31,18 @@
         <div><i class="fas fa-phone"></i><span>Telefone</span></div>
     </th>
     <th>
-        <div><i class="fas fa-calendar"></i><span>Data nascimnto</span></div>
+        <div><i class="fas fa-calendar"></i><span>Data nascimento</span></div>
     </th>
-    <th>
-        <div><i class="fas fa-user-secret"></i><span>Tipo</span></div>
+    <th colspan="2">
+        <div><i class="fas fa-chalkboard"></i><span>Curso-Disciplina(Acções)</span></div>
     </th>
     <th colspan="2">
         <div><i class="fas fa-tools"></i><span>Acções</span></div>
     </th>
 @endsection
 @section('tbody')
-    @foreach ($professores as $professor->user)
-        <tr style="align-items: center;" >
+    @foreach ($professores as $professor)
+        <tr style="align-items: center;">
             <td class="text-center">
                 @if ($professor->user->image)
                     <a href="{{ url("storage/{$professor->user->image}") }}">
@@ -69,33 +55,45 @@
                             style="width: 35px; height: 35px;">
                     </a>
                     <br />
-                    <button class="text-primary bg-none btn-file d-flex gap-1 align-items-center" data-bs-toggle="modal" data-bs-target="#modalFile"
-                        url="{{ route('account.photo', $professor->user->id) }}" method="PUT">
+                    <button class="text-primary bg-none btn-file d-flex gap-1 align-items-center" data-bs-toggle="modal"
+                        data-bs-target="#modalFile" url="{{ route('account.photo', $professor->user->id) }}" method="PUT">
                         <i class="fas fa-plus"></i>
                         <span>adicionar</span>
                     </button>
                 @endif
             </td>
             <td>{{ $professor->user->name }}</td>
+            <td>{{ $professor->curso }}</td>
+            <td>{{ $professor->disciplina }}</td>
             <td>{{ $professor->user->email }}</td>
             <td data-vd="{{ $professor->user->gender }}">
-            {{ UserUtil::genders()[$professor->user->gender] }}
+                {{ UserUtil::genders()[$professor->user->gender] }}
             </td>
             <td>{{ $professor->user->phone }}</td>
             <td>{{ $professor->user->birthday }}</td>
-            <td data-vd={{ $professor->user->tipo }}>
-                {{ UserUtil::tipos()[$professor->user->tipo] }}
+            <td>
+                <a href="{{ route('professores.curso_disciplina.add',$professor->id) }}" class="text-primary rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
+                    <i class="fas fa-plus"></i>
+                    <span>adicionar</span>
+                </a>
             </td>
             <td>
-                <a href="#" class="text-info rounded btn-sm btn-user-tr d-flex gap-1 align-items-center" data-bs-toggle="modal"
-                    data-bs-target="#modalUser" url="{{ route($panel . '.update', $professor->user->id) }}" method="PUT">
+                <a href="{{ route('professores.curso_disciplina.list',$professor->id) }}" class="text-success rounded btn-sm btn-user-del d-flex gap-1 align-items-center">
+                    <i class="fas fa-list"></i>
+                    <span>listar</span>
+                    <sup>{{ count_professor($professor->user->id) }}</sup>
+                </a>
+            </td>
+            <td>
+                <a href="{{ route($panel . '.edit', $professor->id) }}" class="text-info rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
                     <i class="fas fa-user-edit"></i>
                     <span>editar</span>
                 </a>
             </td>
             <td>
-                <a href="#" class="text-danger rounded btn-sm btn-user-del d-flex gap-1 align-items-center" data-bs-toggle="modal"
-                    data-bs-target="#modalUser" url="{{ route($panel . '.destroy', $professor->user->id) }}" method="DELETE">
+                <a href="#" class="text-danger rounded btn-sm btn-del d-flex gap-1 align-items-center"
+                    data-bs-toggle="modal" data-bs-target="#modalDelete"
+                    url="{{ route($panel . '.destroy', $professor->id) }}" method="DELETE">
                     <i class="fas fa-user-times"></i>
                     <span>eliminar</span>
                 </a>
@@ -104,13 +102,14 @@
     @endforeach
 @endsection
 @section('modal')
-    @include('components.modal.utilizador', ['type' => $panel])
     @include('components.modal.fileupload')
+    @include('components.modal.delete',[
+        'title' => "Eliminar Professor",
+        'message' => "Tens certeza que desejas eliminar este professor?"
+    ])
 @endsection
 @section('script')
     @parent
-    <script src="{{ asset('js/help/clearForm.help.js') }}"></script>
-    <script src="{{ asset('js/help/select.help.js') }}"></script>
     <script src="{{ asset('js/fileupload.js') }}"></script>
-    <script src="{{ asset('js/page/utilizador.js') }}"></script>
+    <script src="{{ asset('js/help/delete.js') }}"></script>
 @endsection

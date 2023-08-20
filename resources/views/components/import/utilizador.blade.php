@@ -1,4 +1,3 @@
-
 @php use App\Utils\UserUtil; @endphp
 <div class="row mt-1">
     <div class="col-md-6">
@@ -73,17 +72,30 @@
         ])
     </div>
     <div class="col-md-6">
-        @include('components.select', [
-            'label' => 'Ocupação:',
-            'icon' => 'fas fa-user-secret',
-            'name' => 'tipo',
-            'require' => true,
-            'list' => UserUtil::tipos(),
-            'init' => $user->tipo ?? '',
-            'rounded' => $rounded ?? false,
-            'inline' => $inline ?? false,
-            'disabled' => isset($funcionario_readonly)
-        ])
+        @if (isset($user_tipo) && $user_tipo != '')
+            @include('components.input', [
+                'label' => 'Ocupação:',
+                'icon' => 'fas fa-user-secret',
+                'name' => 'tipo',
+                'require' => true,
+                'value' => $user_tipo,
+                'rounded' => $rounded ?? false,
+                'inline' => $inline ?? false,
+                'disabled' => true,
+            ])
+        @else
+            @include('components.select', [
+                'label' => 'Ocupação:',
+                'icon' => 'fas fa-user-secret',
+                'name' => 'tipo',
+                'require' => true,
+                'list' => UserUtil::tipos(),
+                'init' => $user->tipo ?? '',
+                'rounded' => $rounded ?? false,
+                'inline' => $inline ?? false,
+                'disabled' => isset($funcionario_readonly),
+            ])
+        @endif
     </div>
 </div>
 @if (!isset($password_hidden))

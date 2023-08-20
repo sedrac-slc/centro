@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         @include('components.input', [
             'label' => 'Nome:',
             'icon' => 'fas fa-signature',
@@ -7,7 +7,7 @@
             'name' => 'nome',
             'placeholder' => 'Digita o nome do medicamento',
             'require' => true,
-            'value' => old('nome'),
+            'value' => $disciplina->nome ?? old('nome'),
         ])
     </div>
 </div>
@@ -20,7 +20,7 @@
             'name' => 'descricao',
             'placeholder' => 'Escreva uma descrição curta',
             'require' => true,
-            'value' => old('descricao'),
+            'value' => $disciplina->nome ?? old('descricao'),
             'rounded' => $rounded ?? false,
             'inline' => $inline ?? false,
             'disabled' => $disabled ?? false,

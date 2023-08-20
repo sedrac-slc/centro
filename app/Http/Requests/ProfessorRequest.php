@@ -21,9 +21,8 @@ class ProfessorRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'curso_disciplina_id' => "required",
-            'user_id' => "required"
-        ];
+        $roles = (new UtilizadorRequest())->rules();
+        $roles['curso_disciplina_id'] = "nullable";
+        return $roles;
     }
 }

@@ -60,7 +60,10 @@ class DatabaseSeeder extends Seeder
             $join = $curso->id . "-" . $disciplina->id;
             if (!in_array($join, $aux_curso_disciplina)) {
                 $aux_curso_disciplina[] = $join;
-                $cursoDisciplinas[] = CursoDisciplina::create(CursoDisciplinaUtil::generatorFaker($curso, $disciplina, $admin));
+                $cursoDisciplina = CursoDisciplina::where(["curso_id"=>$curso->id, "disciplina_id"=>$disciplina->id])->first();
+                if(!isset($cursoDisciplina->id)){
+                    $cursoDisciplinas[] = CursoDisciplina::create(CursoDisciplinaUtil::generatorFaker($curso, $disciplina, $admin));
+                }
             }
         } while (25 != sizeof($cursoDisciplinas));
 
@@ -95,10 +98,11 @@ class DatabaseSeeder extends Seeder
                 $data['nota_terceira'] = rand(0,20);
                 $data['nota_final'] = ($data['nota_primeira']+$data['nota_segunda']+$data['nota_terceira']) / 3;
                 $data['created_by'] = $data['updated_by'] = $admin->id;
-
-                Nota::create($data);
-
-                $cont++;
+                $nota = Nota::where(['curso_disciplina_id'=>$cursoDisciplina->id,'aluno_id'=>$aluno->id])->first();
+                if(!isset($nota->id)){
+                    Nota::create($data);
+                    $cont++;
+                }
             }
 
         }while($cont < 20);

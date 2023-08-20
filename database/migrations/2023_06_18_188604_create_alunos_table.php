@@ -17,6 +17,10 @@ return new class extends Migration
             $table->foreignId('curso_id')->constrained('cursos')->cascadeOnDelete();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
+            $table->boolean('is_terminado')->default(false);
+            $table->boolean('is_aprovado')->default(false);
+            $table->boolean('is_pago')->default(false);
+            $table->boolean('is_pago_terminado')->default(false);
             $table->timestamps();
             $table->unique(['user_id','curso_id']);
         });

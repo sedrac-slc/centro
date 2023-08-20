@@ -21,4 +21,8 @@ class Disciplina extends Model
         return $this->hasMany(CursoDisciplina::class);
     }
 
+    public function cursos(){
+        return $this->belongsToMany(Curso::class);
+    }
+
 }

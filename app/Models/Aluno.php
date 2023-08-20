@@ -13,6 +13,9 @@ class Aluno extends Model
         'id',
         'user_id',
         'curso_id',
+        'is_terminado',
+        'is_aprovado',
+        'is_pago',
         'created_by',
         'updated_by'
     ];
@@ -29,5 +32,8 @@ class Aluno extends Model
         return $this->hasMany(Notas::class);
     }
 
+    public function pagamentos(){
+        return $this->hasMany(Pagamento::class);
+    }
 
 }

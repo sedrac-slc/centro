@@ -1,10 +1,5 @@
 @extends('layouts.dashboard')
 @section('painel')
-    <div class="mt-2 bg-white rounded p-2">
-        <span>Bem vindo:</span>
-        <strong>{{ Auth::user()->name }}</strong>
-    </div>
-    <hr/>
     <section class="m-auto bg-white p-3">
         <ul class="nav nav-tabs p-2" id="myTab" role="tablist">
             <li class="nav-item">

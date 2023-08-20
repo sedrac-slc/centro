@@ -1,16 +1,3 @@
-<div class="row">
-    <div class="col-md-12">
-        @include('components.input', [
-            'label' => 'Aluno:',
-            'icon' => 'fas fa-signature',
-            'type' => 'text',
-            'name' => 'nome_aluno',
-            'placeholder' => 'Digita o nome do medicamento',
-            'require' => true,
-            'value' => old('nome_aluno'),
-        ])
-    </div>
-</div>
 <div class="row mt-1 pb-3">
     <div class="col-md-4">
         @include('components.input', [
@@ -18,9 +5,10 @@
             'icon' => 'fas fa-list',
             'type' => 'number',
             'name' => 'nota_primeira',
+            'min' => 0,
             'placeholder' => '',
             'require' => true,
-            'value' => old('nota_primeira'),
+            'value' => $nota->nota_primeira ?? old('nota_primeira'),
         ])
     </div>
     <div class="col-md-4">
@@ -29,9 +17,10 @@
             'icon' => 'fas fa-list',
             'type' => 'number',
             'name' => 'nota_segunda',
+            'min' => 0,
             'placeholder' => '',
             'require' => true,
-            'value' => old('nota_segunda'),
+            'value' => $nota->nota_segunda ?? old('nota_segunda'),
         ])
     </div>
     <div class="col-md-4">
@@ -40,9 +29,10 @@
             'icon' => 'fas fa-list',
             'type' => 'number',
             'name' => 'nota_terceira',
+            'min' => 0,
             'placeholder' => '',
             'require' => true,
-            'value' => old('nota_terceira'),
+            'value' => $nota->nota_terceira ?? old('nota_terceira'),
         ])
     </div>
 </div>

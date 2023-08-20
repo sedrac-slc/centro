@@ -26,7 +26,7 @@ class Nota extends Model
     }
 
     public function curso_disciplina(){
-        return $this->hasMany(CursoDisciplina::class);
+        return $this->hasOne(CursoDisciplina::class,'id','curso_disciplina_id');
     }
 
 }

@@ -19,6 +19,10 @@ class CursoDisciplina extends Model
 
     protected $table = "curso_disciplina";
 
+    public function notas(){
+        return $this->belongsTo(Nota::class,'curso_disciplina_id','id');
+    }
+
     public function curso(){
         return $this->belongsTo(Curso::class);
     }

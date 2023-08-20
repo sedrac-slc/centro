@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->string('descricao');
+            $table->double('preco')->unsigned();
             $table->date('data_inicio');
             $table->date('data_termino');
             $table->time('hora_entrada');
             $table->time('hora_termino');
             $table->integer('sala')->nullable();
+            $table->boolean('is_terminado')->default(false);
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();

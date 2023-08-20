@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserUtil{
 
-    public static function isAdministrador(){
-        if(Auth::user()->tipo != 'ADMINISTRADOR'){
+    public static function isAdministrador($alert = true){
+        if(Auth::user()->tipo != 'ADMINISTRADOR' && $alert){
             toastr()->error("Permissão negada apenas os administradores tenhem permissão", "Aviso");
             return false;
         }

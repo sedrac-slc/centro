@@ -7,7 +7,7 @@
             'name' => 'nome',
             'placeholder' => 'Digita o nome do medicamento',
             'require' => true,
-            'value' => old('nome'),
+            'value' => $curso->nome ?? old('nome'),
         ])
     </div>
     <div class="col-md-6">
@@ -17,7 +17,7 @@
             'type' => 'number',
             'name' => 'sala',
             'placeholder' => 'Digita a sala',
-            'value' => old('sala'),
+            'value' => $curso->sala ?? old('sala'),
         ])
     </div>
 </div>
@@ -30,18 +30,18 @@
             'name' => 'data_inicio',
             'placeholder' => 'Digita a data começo',
             'require' => true,
-            'value' => old('data_inicio'),
+            'value' => $curso->data_inicio ?? old('data_inicio'),
         ])
     </div>
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Data(termino):',
-            'icon' => 'fas fa-calendar-time',
+            'icon' => 'fas fa-calendar-times',
             'type' => 'date',
             'name' => 'data_termino',
             'placeholder' => 'Digita a data termino',
             'require' => true,
-            'value' => old('data_termino'),
+            'value' => $curso->data_termino ?? old('data_termino'),
         ])
     </div>
 </div>
@@ -49,23 +49,37 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Hora(começo):',
-            'icon' => 'fas fa-calendar',
+            'icon' => 'fas fa-clock',
             'type' => 'time',
             'name' => 'hora_entrada',
             'placeholder' => 'Digita a hora começo',
             'require' => true,
-            'value' => old('hora_entrada'),
+            'value' => $curso->hora_entrada ?? old('hora_entrada'),
         ])
     </div>
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Hora(termino):',
-            'icon' => 'fas fa-calendar-time',
+            'icon' => 'fas fa-history',
             'type' => 'time',
             'name' => 'hora_termino',
             'placeholder' => 'Digita a hora termino',
             'require' => true,
-            'value' => old('hora_termino'),
+            'value' => $curso->hora_termino ?? old('hora_termino'),
+        ])
+    </div>
+</div>
+<div class="row mt-1 pb-3">
+    <div class="col-md-6">
+        @include('components.input', [
+            'label' => 'Preço:',
+            'icon' => 'fas fa-money-bill',
+            'type' => 'number',
+            'name' => 'preco',
+            'min' => 0,
+            'placeholder' => 'Digita o preço',
+            'require' => true,
+            'value' => $curso->preco ?? old('preco'),
         ])
     </div>
 </div>
@@ -78,7 +92,7 @@
             'name' => 'descricao',
             'placeholder' => 'Escreva uma descrição curta',
             'require' => true,
-            'value' => old('descricao'),
+            'value' => $curso->descricao ?? old('descricao'),
             'rounded' => $rounded ?? false,
             'inline' => $inline ?? false,
             'disabled' => $disabled ?? false,
