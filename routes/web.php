@@ -9,6 +9,7 @@ use App\Http\Controllers\{
     PagamentoController,
     DisciplinaController,
     UtilizadorController,
+    LancarNotaController,
     CursoDisciplinaController,
 };
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,9 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(["auth"])->group(function(){
+
+    Route::get('lancar',[LancarNotaController::class,'cursos'])->name('lancar.index');
+    Route::get('lancar-nota-curso',[LancarNotaController::class,'curso_disciplina'])->name('lancar.curso.disciplina');
 
     Route::get('alunos/{id}/pagamentos/add',[PagamentoController::class,'pagamento_add'])->name('alunos.pagamento.add');
     Route::get('alunos/{id}/pagamentos/list',[PagamentoController::class,'pagamento_list'])->name('alunos.pagamento.list');

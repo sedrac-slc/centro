@@ -15,6 +15,14 @@ class UserUtil{
         return true;
     }
 
+    public static function isProfessor($alert = true){
+        if(Auth::user()->tipo != 'PROFESSOR' && $alert){
+            toastr()->error("Permissão negada apenas os professores tenhem permissão", "Aviso");
+            return false;
+        }
+        return true;
+    }
+
     public static function genders(){
         return ['MALE' => 'Masculino','FEMALE' => 'Femenino'];
     }
