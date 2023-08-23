@@ -7,8 +7,11 @@ use App\Models\Aluno;
 use App\Models\Curso;
 use App\Models\CursoDisciplina;
 use App\Models\Disciplina;
+use App\Models\Nota;
+use App\Utils\MessageToastrUtil;
 use App\Utils\UserUtil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LancarNotaController extends Controller
 {
@@ -33,9 +36,46 @@ class LancarNotaController extends Controller
                     ->leftjoin('notas','notas.aluno_id','alunos.id')
                     ->where('alunos.curso_id',$cursoDisciplina->curso_id)
                     ->where('notas.curso_disciplina_id',$cursoDisciplina->id)
-                    ->select("users.name as aluno","nota_primeira","nota_segunda","nota_terceira","nota_final")
+                    ->select(
+                        "users.name as aluno","nota_primeira","nota_segunda","nota_terceira","nota_final",
+                    )
                     ->paginate();
         return view('professor.lancar_nota', ["panel"=>"lancar","disciplina" => $disciplina,"cursoDisciplina"=>$cursoDisciplina, "alunos" => $alunos]);
+    }
+
+    public function lancar_store(Request $request,$id){
+        try{
+            if(!UserUtil::isProfessor()) return redirect()->back();
+            $alunos = $request->alunos ?? [];
+            $nota_primeiro = $request->nota_primeiro ?? [];
+            $nota_segunda = $request->nota_segunda ?? [];
+            $nota_terceiro = $request->nota_terceiro ?? [];
+            $tam = sizeof($alunos);
+            for($i=0; $i < $tam; $i++){
+                $data = ["curso_disciplina_id" => $id, "aluno_id" => $alunos[$i] ];
+                $this->insertOrUpdate($data,$nota_primeiro[$i],$nota_segunda[$i],$nota_terceiro[$i]);
+            }
+            MessageToastrUtil::success();
+        }catch(\Exception){
+            MessageToastrUtil::error();
+        }
+        return redirect()->back();
+    }
+
+    private function insertOrUpdate($data,$nota_primeiro,$nota_segunda,$nota_terceiro){
+        $nota = Nota::where($data)->first();
+        $data["nota_primeiro"]=$nota_primeiro;
+        $data["nota_segunda"]=$nota_segunda;
+        $data["nota_terceiro"]=$nota_terceiro;
+        if(isset($nota->id)){
+            $data['updated_by'] = Auth::user()->id;
+            $nota->update($data);
+        }else{
+            $data['created_by'] = Auth::user()->id;
+            $data['updated_by'] = Auth::user()->id;
+            $nota = Nota::create($data);
+        }
+        return $nota;
     }
 
 }

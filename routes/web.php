@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(["auth"])->group(function(){
-
+    Route::post('lancar_store/{id}',[LancarNotaController::class,'lancar_store'])->name('lancar.store');
     Route::get('lancar',[LancarNotaController::class,'cursos'])->name('lancar.index');
     Route::get('lancar-nota-curso',[LancarNotaController::class,'curso_disciplina'])->name('lancar.curso.disciplina');
 
