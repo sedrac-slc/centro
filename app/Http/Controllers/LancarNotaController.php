@@ -53,7 +53,7 @@ class LancarNotaController extends Controller
             $tam = sizeof($alunos);
             for($i=0; $i < $tam; $i++){
                 $data = ["curso_disciplina_id" => $id, "aluno_id" => $alunos[$i] ];
-                $this->insertOrUpdate($data,$nota_primeiro[$i],$nota_segunda[$i],$nota_terceiro[$i]);
+                $this->insertOrUpdate($data,$nota_primeiro[$i] ?? 0,$nota_segunda[$i] ?? 0,$nota_terceiro[$i] ?? 0);
             }
             MessageToastrUtil::success();
         }catch(\Exception){
