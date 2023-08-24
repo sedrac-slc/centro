@@ -23,6 +23,14 @@ class UserUtil{
         return true;
     }
 
+    public static function isAluno($alert = true){
+        if(Auth::user()->tipo != 'ALUNO' && $alert){
+            toastr()->error("Permissão negada apenas os alunos tenhem permissão", "Aviso");
+            return false;
+        }
+        return true;
+    }
+
     public static function genders(){
         return ['MALE' => 'Masculino','FEMALE' => 'Femenino'];
     }
