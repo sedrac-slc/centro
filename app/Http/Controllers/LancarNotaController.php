@@ -22,7 +22,7 @@ class LancarNotaController extends Controller
                 ->join('disciplinas','disciplina_id','disciplinas.id')
                 ->join('professores','curso_disciplina_id','curso_disciplina.id')
                 ->where('professores.user_id',$user_id)
-                ->select('cursos.*','disciplina.nome as disciplina','disciplina_id','curso_disciplina_id')
+                ->select('cursos.*','disciplinas.nome as disciplina','disciplina_id','curso_disciplina_id')
                 ->orderBy('curso_disciplina.id','desc')
                 ->paginate();
         return view('professor.curso', ["panel"=>"lancar","cursos"=>$cursos]);
@@ -32,14 +32,7 @@ class LancarNotaController extends Controller
         if(!UserUtil::isProfessor()) return redirect()->back();
         $cursoDisciplina = CursoDisciplina::find($id);
         $disciplina = Disciplina::find($cursoDisciplina->id);
-        $alunos = Aluno::join('users','user_id','users.id')
-                    ->leftjoin('notas','notas.aluno_id','alunos.id')
-                    ->where('alunos.curso_id',$cursoDisciplina->curso_id)
-                    ->where('notas.curso_disciplina_id',$cursoDisciplina->id)
-                    ->select(
-                        "users.name as aluno","nota_primeira","nota_segunda","nota_terceira","nota_final",
-                    )
-                    ->paginate();
+        $alunos = Aluno::with('user')->where('curso_id',$cursoDisciplina->curso_id)->paginate();
         return view('professor.lancar_nota', ["panel"=>"lancar","disciplina" => $disciplina,"cursoDisciplina"=>$cursoDisciplina, "alunos" => $alunos]);
     }
 
@@ -56,7 +49,8 @@ class LancarNotaController extends Controller
                 $this->insertOrUpdate($data,$nota_primeiro[$i] ?? 0,$nota_segunda[$i] ?? 0,$nota_terceiro[$i] ?? 0);
             }
             MessageToastrUtil::success();
-        }catch(\Exception){
+        }catch(\Exception $e){
+            dd($e);
             MessageToastrUtil::error();
         }
         return redirect()->back();
@@ -64,9 +58,10 @@ class LancarNotaController extends Controller
 
     private function insertOrUpdate($data,$nota_primeiro,$nota_segunda,$nota_terceiro){
         $nota = Nota::where($data)->first();
-        $data["nota_primeiro"]=$nota_primeiro;
+        $data["nota_primeira"]=$nota_primeiro;
         $data["nota_segunda"]=$nota_segunda;
-        $data["nota_terceiro"]=$nota_terceiro;
+        $data["nota_terceira"]=$nota_terceiro;
+        $data["nota_final"] = ($data["nota_primeira"]+$data["nota_segunda"]+$data["nota_terceira"])/3;
         if(isset($nota->id)){
             $data['updated_by'] = Auth::user()->id;
             $nota->update($data);

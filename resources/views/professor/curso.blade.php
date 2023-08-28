@@ -1,10 +1,10 @@
 @extends('layouts.page', ['list' => $cursos])
 @section('thead')
     <th>
-        <div><i class="fas fa-signature"></i><span>Nome</span></div>
+        <div><i class="fas fa-signature"></i><span>Curso</span></div>
     </th>
     <th>
-        <div><i class="fas fa-clipboard"><span>Disciplina</span></div>
+        <div><i class="fas fa-clipboard"></i><span>Disciplina</span></div>
     </th>
     <th>
         <div><i class="fas fa-money-bill"></i><span>Preço</span></div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Aluno;
+use App\Models\Nota;
 use App\Models\Professor;
 
 if(!function_exists('short_name')){
@@ -21,5 +22,13 @@ if(!function_exists('count_aluno')){
 if(!function_exists('count_professor')){
     function count_professor($user_id){
         return Professor::where('user_id',$user_id)->count();
+    }
+}
+
+
+if(!function_exists('nota')){
+    function nota($curso_disciplina_id,$aluno_id){
+        return Nota::where('curso_disciplina_id',$curso_disciplina_id)
+                   ->where('aluno_id',$aluno_id)->first();
     }
 }

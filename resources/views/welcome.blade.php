@@ -10,11 +10,16 @@
         p {
             text-align: justify;
         }
+
+        .section{
+            margin-top: 5rem;
+        }
     </style>
 @endsection
 @section('content')
-    <div>
+    <div class="mt-4 section">
         <h2>Seja bem vindo a o SmartCentro</h2>
+        <hr/>
         <p>O nosso centro apresenta esta plataforma para todos os nossos funcionários e alunos tenham acesso a nosso serviço
         </p>
         @auth

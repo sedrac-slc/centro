@@ -31,7 +31,7 @@ Route::middleware(["auth"])->group(function(){
 
     Route::post('lancar_store/{id}',[LancarNotaController::class,'lancar_store'])->name('lancar.store');
     Route::get('lancar',[LancarNotaController::class,'cursos'])->name('lancar.index');
-    Route::get('lancar-nota-curso',[LancarNotaController::class,'curso_disciplina'])->name('lancar.curso.disciplina');
+    Route::get('lancar-nota-curso/{id}',[LancarNotaController::class,'curso_disciplina'])->name('lancar.curso.disciplina');
 
     Route::get('alunos/{id}/pagamentos/add',[PagamentoController::class,'pagamento_add'])->name('alunos.pagamento.add');
     Route::get('alunos/{id}/pagamentos/list',[PagamentoController::class,'pagamento_list'])->name('alunos.pagamento.list');
