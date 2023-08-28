@@ -12,6 +12,7 @@ function ajaxCurso(nome) {
                         <input id="radio_curso${index}" class="form-check-input" type="radio" name="curso_id" value="${item.id}">
                     </td>
                     <td><label for="radio_curso${index}">${item.nome}</label></td>
+                    <td>${item.preco}</td>
                     <td>${item.data_inicio}</td>
                     <td>${item.data_termino}</td>
                     <td>${item.hora_entrada}</td>
@@ -31,6 +32,7 @@ function tableComponentCreate(line) {
                 <tr>
                     <th class="text-center"><span>#</span></th>
                     <th><i class="fas fa-signature"></i><span>Nome</span></th>
+                    <th><i></i><span>Preço</span></td>
                     <th><i></i><span>Data inicio</span></td>
                     <th><i></i><span>Data termino</span></td>
                     <th><i></i><span>Hora entrada</span></td>

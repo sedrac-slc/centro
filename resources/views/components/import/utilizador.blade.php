@@ -77,11 +77,10 @@
                 'label' => 'Ocupação:',
                 'icon' => 'fas text-yellow fa-user-secret',
                 'name' => 'tipo',
-                'require' => true,
                 'value' => $user_tipo,
                 'rounded' => $rounded ?? false,
                 'inline' => $inline ?? false,
-                'disabled' => true,
+                'readonly' => true,
             ])
         @else
             @include('components.select', [
