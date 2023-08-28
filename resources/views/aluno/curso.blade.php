@@ -1,31 +1,31 @@
 @extends('layouts.page', ['list' => $cursos])
 @section('thead')
     <th>
-        <div><i class="fas fa-signature"></i><span>Nome</span></div>
+        <div><i class="fas text-yellow fa-signature"></i><span>Nome</span></div>
     </th>
     <th>
-        <div><i class="fas fa-money-bill"></i><span>Preço</span></div>
+        <div><i class="fas text-yellow fa-money-bill"></i><span>Preço</span></div>
     </th>
     <th>
-        <div><i class="fa fa-comment"></i><span>Descrição</span></div>
+        <div><i class="fa text-yellow fa-comment"></i><span>Descrição</span></div>
     </th>
     <th>
-        <div><i class="fa fa-calendar"></i><span>Data(Começo)</span></div>
+        <div><i class="fa text-yellow fa-calendar"></i><span>Data(Começo)</span></div>
     </th>
     <th>
-        <div><i class="fa fa-calendar-times"></i><span>Data(Termino)</span></div>
+        <div><i class="fa text-yellow fa-calendar-times"></i><span>Data(Termino)</span></div>
     </th>
     <th>
-        <div><i class="fa fa-clock"></i><span>Hora(Começo)</span></div>
+        <div><i class="fa text-yellow fa-clock"></i><span>Hora(Começo)</span></div>
     </th>
     <th>
-        <div><i class="fas fa-history"></i><span>Hora(Termino)</span></div>
+        <div><i class="fas text-yellow fa-history"></i><span>Hora(Termino)</span></div>
     </th>
     <th>
-        <div><i class="fab fa-buromobelexperte"></i><span>Sala</span></div>
+        <div><i class="fab text-yellow fa-buromobelexperte"></i><span>Sala</span></div>
     </th>
     <th colspan="2">
-        <div><i class="fas fa-tools"></i><span>Acção</span></div>
+        <div><i class="fas text-yellow fa-tools"></i><span>Acção</span></div>
     </th>
 @endsection
 @section('tbody')

@@ -23,13 +23,13 @@
 @endsection
 @section('thead')
     <th>
-        <div><i class="fas fa-signature"></i><span>Curso</span></div>
+        <div><i class="fas text-yellow fa-signature"></i><span>Curso</span></div>
     </th>
     <th>
         <div><i class="fa fa-commet"></i><span>Disciplina</span></div>
     </th>
     <th colspan="2">
-        <div><i class="fas fa-tools"></i><span>Acções</span></div>
+        <div><i class="fas text-yellow fa-tools"></i><span>Acções</span></div>
     </th>
 @endsection
 @section('tbody')

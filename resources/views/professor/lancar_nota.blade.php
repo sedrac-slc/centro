@@ -13,19 +13,19 @@
 @endsection
     @section('thead')
         <th>
-            <div><i class="fas fa-signature"></i><span>Nome</span></div>
+            <div><i class="fas text-yellow fa-signature"></i><span>Nome</span></div>
         </th>
         <th>
-            <div><i class="fas fa-clipboard"></i><span>Nota(primeira)</span></div>
+            <div><i class="fas text-yellow fa-clipboard"></i><span>Nota(primeira)</span></div>
         </th>
         <th>
-            <div><i class="fas fa-money-bill"></i><span>Nota(segunda)</span></div>
+            <div><i class="fas text-yellow fa-clipboard"></i><span>Nota(segunda)</span></div>
         </th>
         <th>
-            <div><i class="fa fa-comment"></i><span>Nota(terceira)</span></div>
+            <div><i class="fa text-yellow fa-clipboard"></i><span>Nota(terceira)</span></div>
         </th>
         <th>
-            <div><i class="fa fa-comment"></i><span>Nota(final)</span></div>
+            <div><i class="fa text-yellow fa-clipboard"></i><span>Nota(final)</span></div>
         </th>
     @endsection
     @section('tbody')

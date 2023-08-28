@@ -13,31 +13,31 @@
 @endsection
 @section('thead')
     <th>
-        <div><i class="fas fa-signature"></i><span>Aluno</span></div>
+        <div><i class="fas text-yellow fa-signature"></i><span>Aluno</span></div>
     </th>
     <th>
-        <div><i class="fas fa-chalkboard"></i><span>Curso(Nome)</span></div>
+        <div><i class="fas text-yellow fa-chalkboard"></i><span>Curso(Nome)</span></div>
     </th>
     <th>
-        <div><i class="fas fa-chalkboard"></i><span>Curso(Preco)</span></div>
+        <div><i class="fas text-yellow fa-chalkboard"></i><span>Curso(Preco)</span></div>
     </th>
     <th>
-        <div><i class="fas fa-clipboard"></i><span>Curso(Pago)</span></div>
+        <div><i class="fas text-yellow fa-clipboard"></i><span>Curso(Pago)</span></div>
     </th>
     <th>
-        <div><i class="fas fa-money-bill"></i><span>Total(Pago)</span></div>
+        <div><i class="fas text-yellow fa-money-bill"></i><span>Total(Pago)</span></div>
     </th>
     <th>
-        <div><i class="fas fa-money-bill"></i><span>Valor(Entrego)</span></div>
+        <div><i class="fas text-yellow fa-money-bill"></i><span>Valor(Entrego)</span></div>
     </th>
     <th>
-        <div><i class="fas fa-bars"></i><span>Prestação</span></div>
+        <div><i class="fas text-yellow fa-bars"></i><span>Prestação</span></div>
     </th>
     <th>
-        <div><i class="fas fa-list"></i><span>Troco</span></div>
+        <div><i class="fas text-yellow fa-list"></i><span>Troco</span></div>
     </th>
     <th colspan="2">
-        <div><i class="fas fa-tools"></i><span>Acções</span></div>
+        <div><i class="fas text-yellow fa-tools"></i><span>Acções</span></div>
     </th>
 @endsection
 @section('tbody')

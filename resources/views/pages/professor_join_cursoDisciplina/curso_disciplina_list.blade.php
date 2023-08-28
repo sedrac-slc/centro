@@ -7,28 +7,28 @@
 @endsection
 @section('thead')
     <th>
-        <div><i class="fas fa-chalkboard"></i><span>Curso</span></div>
+        <div><i class="fas text-yellow fa-chalkboard"></i><span>Curso</span></div>
     </th>
     <th>
-        <div><i class="fas fa-money-bill"></i><span>Preço</span></div>
+        <div><i class="fas text-yellow fa-money-bill"></i><span>Preço</span></div>
     </th>
     <th>
-        <div><i class="fa fa-calendar"></i><span>Data(Começo)</span></div>
+        <div><i class="fa text-yellow fa-calendar"></i><span>Data(Começo)</span></div>
     </th>
     <th>
-        <div><i class="fa fa-calendar-times"></i><span>Data(Termino)</span></div>
+        <div><i class="fa text-yellow fa-calendar-times"></i><span>Data(Termino)</span></div>
     </th>
     <th>
-        <div><i class="fa fa-clock"></i><span>Hora(Começo)</span></div>
+        <div><i class="fa text-yellow fa-clock"></i><span>Hora(Começo)</span></div>
     </th>
     <th>
-        <div><i class="fas fa-history"></i><span>Hora(Termino)</span></div>
+        <div><i class="fas text-yellow fa-history"></i><span>Hora(Termino)</span></div>
     </th>
     <th>
-        <div><i class="fas fa-clipboard"></i><span>Disciplina</span></div>
+        <div><i class="fas text-yellow fa-clipboard"></i><span>Disciplina</span></div>
     </th>
     <th colspan="1">
-        <div><i class="fas fa-tools"></i><span>Acções</span></div>
+        <div><i class="fas text-yellow fa-tools"></i><span>Acções</span></div>
     </th>
 @endsection
 @section('tbody')

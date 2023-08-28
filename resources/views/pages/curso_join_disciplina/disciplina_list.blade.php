@@ -7,13 +7,13 @@
 @endsection
 @section('thead')
     <th>
-        <div><i class="fas fa-signature"></i><span>Nome</span></div>
+        <div><i class="fas text-yellow fa-signature"></i><span>Nome</span></div>
     </th>
     <th>
-        <div><i class="fa fa-comment"></i><span>Descrição</span></div>
+        <div><i class="fa text-yellow fa-comment"></i><span>Descrição</span></div>
     </th>
     <th>
-        <div><i class="fas fa-tools"></i><span>Acções</span></div>
+        <div><i class="fas text-yellow fa-tools"></i><span>Acções</span></div>
     </th>
 @endsection
 @section('tbody')
