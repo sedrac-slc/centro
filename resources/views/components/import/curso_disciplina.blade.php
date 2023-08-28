@@ -2,7 +2,7 @@
     <div class="col-md-12">
         @include('components.input', [
             'label' => 'Curso:',
-            'icon' => 'fas fa-signature',
+            'icon' => 'fas text-yellow fa-signature',
             'type' => 'text',
             'name' => 'nome',
             'placeholder' => 'Digita o curso',
@@ -15,7 +15,7 @@
     <div class="col-md-12">
         @include('components.input', [
             'label' => 'Disciplina:',
-            'icon' => 'fas fa-signature',
+            'icon' => 'fas text-yellow fa-signature',
             'type' => 'text',
             'name' => 'disciplina',
             'placeholder' => 'Digita o disciplina',

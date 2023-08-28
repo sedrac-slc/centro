@@ -2,7 +2,7 @@
     <div class="col-md-4">
         @include('components.input', [
             'label' => 'Nota(primeira):',
-            'icon' => 'fas fa-list',
+            'icon' => 'fas text-yellow fa-list',
             'type' => 'number',
             'name' => 'nota_primeira',
             'min' => 0,
@@ -14,7 +14,7 @@
     <div class="col-md-4">
         @include('components.input', [
             'label' => 'Nota(segunda):',
-            'icon' => 'fas fa-list',
+            'icon' => 'fas text-yellow fa-list',
             'type' => 'number',
             'name' => 'nota_segunda',
             'min' => 0,
@@ -26,7 +26,7 @@
     <div class="col-md-4">
         @include('components.input', [
             'label' => 'Nota(Terceira):',
-            'icon' => 'fas fa-list',
+            'icon' => 'fas text-yellow fa-list',
             'type' => 'number',
             'name' => 'nota_terceira',
             'min' => 0,

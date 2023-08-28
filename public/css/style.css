@@ -35,3 +35,14 @@ body{
     border: none;
     background: none;
 }
+
+.navbar.bg-yellow .nav-link,
+.navbar.bg-yellow .navbar-brand {
+    color: white;
+}
+
+.btn-logaut-my{
+    position: absolute;
+    right: 1%;
+    font-size: 1.5rem;
+}

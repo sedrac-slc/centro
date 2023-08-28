@@ -2,7 +2,7 @@
     <div class="col-md-12">
         @include('components.input', [
             'label' => 'Nome:',
-            'icon' => 'fas fa-signature',
+            'icon' => 'fas text-yellow fa-signature',
             'type' => 'text',
             'name' => 'nome',
             'placeholder' => 'Digita o nome do medicamento',
@@ -15,7 +15,7 @@
     <div class="col-md-12">
         @include('components.textaria', [
             'label' => 'Faça uma descrição:',
-            'icon' => 'fas fa-comment',
+            'icon' => 'fas text-yellow fa-comment',
             'type' => 'text',
             'name' => 'descricao',
             'placeholder' => 'Escreva uma descrição curta',

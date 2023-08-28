@@ -2,7 +2,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Nome:',
-            'icon' => 'fas fa-signature',
+            'icon' => 'fas text-yellow fa-signature',
             'type' => 'text',
             'name' => 'nome',
             'placeholder' => 'Digita o nome do medicamento',
@@ -13,7 +13,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Sala:',
-            'icon' => 'fas fa-bars',
+            'icon' => 'fas text-yellow fa-bars',
             'type' => 'number',
             'name' => 'sala',
             'placeholder' => 'Digita a sala',
@@ -25,7 +25,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Data(começo):',
-            'icon' => 'fas fa-calendar',
+            'icon' => 'fas text-yellow fa-calendar',
             'type' => 'date',
             'name' => 'data_inicio',
             'placeholder' => 'Digita a data começo',
@@ -36,7 +36,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Data(termino):',
-            'icon' => 'fas fa-calendar-times',
+            'icon' => 'fas text-yellow fa-calendar-times',
             'type' => 'date',
             'name' => 'data_termino',
             'placeholder' => 'Digita a data termino',
@@ -49,7 +49,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Hora(começo):',
-            'icon' => 'fas fa-clock',
+            'icon' => 'fas text-yellow fa-clock',
             'type' => 'time',
             'name' => 'hora_entrada',
             'placeholder' => 'Digita a hora começo',
@@ -60,7 +60,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Hora(termino):',
-            'icon' => 'fas fa-history',
+            'icon' => 'fas text-yellow fa-history',
             'type' => 'time',
             'name' => 'hora_termino',
             'placeholder' => 'Digita a hora termino',
@@ -73,7 +73,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Preço:',
-            'icon' => 'fas fa-money-bill',
+            'icon' => 'fas text-yellow fa-money-bill',
             'type' => 'number',
             'name' => 'preco',
             'min' => 0,
@@ -87,7 +87,7 @@
     <div class="col-md-12">
         @include('components.textaria', [
             'label' => 'Faça uma descrição:',
-            'icon' => 'fas fa-comment',
+            'icon' => 'fas text-yellow fa-comment',
             'type' => 'text',
             'name' => 'descricao',
             'placeholder' => 'Escreva uma descrição curta',

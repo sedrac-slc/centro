@@ -3,7 +3,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Nome(completo):',
-            'icon' => 'fas fa-signature',
+            'icon' => 'fas text-yellow fa-signature',
             'type' => 'text',
             'name' => 'name',
             'placeholder' => 'Digita o seu nome completo',
@@ -16,7 +16,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Email:',
-            'icon' => 'fas fa-envelope',
+            'icon' => 'fas text-yellow fa-envelope',
             'type' => 'email',
             'name' => 'email',
             'placeholder' => 'Digita o seu email',
@@ -32,7 +32,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Data nascimento:',
-            'icon' => 'fas fa-calendar',
+            'icon' => 'fas text-yellow fa-calendar',
             'type' => 'date',
             'name' => 'birthday',
             'placeholder' => 'Digita o sua data nascimento',
@@ -46,7 +46,7 @@
     <div class="col-md-6">
         @include('components.select', [
             'label' => 'Gênero:',
-            'icon' => 'fas fa-venus-mars',
+            'icon' => 'fas text-yellow fa-venus-mars',
             'name' => 'gender',
             'require' => true,
             'list' => UserUtil::genders(),
@@ -60,7 +60,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Telefone:',
-            'icon' => 'fas fa-phone',
+            'icon' => 'fas text-yellow fa-phone',
             'type' => 'text',
             'name' => 'phone',
             'placeholder' => 'Digita o seu telefone',
@@ -75,7 +75,7 @@
         @if (isset($user_tipo) && $user_tipo != '')
             @include('components.input', [
                 'label' => 'Ocupação:',
-                'icon' => 'fas fa-user-secret',
+                'icon' => 'fas text-yellow fa-user-secret',
                 'name' => 'tipo',
                 'require' => true,
                 'value' => $user_tipo,
@@ -86,7 +86,7 @@
         @else
             @include('components.select', [
                 'label' => 'Ocupação:',
-                'icon' => 'fas fa-user-secret',
+                'icon' => 'fas text-yellow fa-user-secret',
                 'name' => 'tipo',
                 'require' => true,
                 'list' => UserUtil::tipos(),
@@ -103,7 +103,7 @@
         <div class="col-md-6">
             @include('components.input', [
                 'label' => 'Senha:',
-                'icon' => 'fas fa-lock',
+                'icon' => 'fas text-yellow fa-lock',
                 'type' => 'password',
                 'name' => 'password',
                 'placeholder' => 'Digita a sua senha',
@@ -116,7 +116,7 @@
         <div class="col-md-6">
             @include('components.input', [
                 'label' => 'Confirma(senha):',
-                'icon' => 'fas fa-key',
+                'icon' => 'fas text-yellow fa-key',
                 'type' => 'password',
                 'name' => 'password_confirmation',
                 'placeholder' => 'Confirma a sua senha',

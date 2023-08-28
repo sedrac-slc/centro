@@ -2,7 +2,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Senha utilizada:',
-            'icon' => 'fas fa-user-lock',
+            'icon' => 'fas text-yellow fa-user-lock',
             'type' => 'password',
             'name' => 'password',
             'placeholder' => 'Digita a sua senha utilizada',
@@ -15,7 +15,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Confirma a senha utilizada:',
-            'icon' => 'fas fa-keyboard',
+            'icon' => 'fas text-yellow fa-keyboard',
             'type' => 'password',
             'name' => 'password_confirmation',
             'placeholder' => 'Confirma a sua senha utilizada',
@@ -30,7 +30,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Senha nova:',
-            'icon' => 'fas fa-lock',
+            'icon' => 'fas text-yellow fa-lock',
             'type' => 'password',
             'name' => 'password_new',
             'placeholder' => 'Digita a sua senha nova',
@@ -43,7 +43,7 @@
     <div class="col-md-6">
         @include('components.input', [
             'label' => 'Confirma senha nova:',
-            'icon' => 'fas fa-key',
+            'icon' => 'fas text-yellow fa-key',
             'type' => 'password',
             'name' => 'password_confirmation_new',
             'placeholder' => 'Confirma a sua senha nova',
