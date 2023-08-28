@@ -17,6 +17,8 @@ return new class extends Migration
             $table->double('preco')->unsigned();
             $table->integer('prestacao')->unsigned()->default(0);
             $table->double('troco')->unsigned()->default(0);
+            $table->string('comprovativo')->nullable();
+            $table->boolean("is_pago_terminado")->default(false);
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();

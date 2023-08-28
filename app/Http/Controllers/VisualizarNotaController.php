@@ -36,7 +36,7 @@ class VisualizarNotaController extends Controller
                     ->where('curso_disciplina.curso_id',$id)
                     ->select('notas.*','disciplinas.nome as disciplina')
                     ->paginate();
-        return view('aluno.nota', ["panel"=>"visualizar","notas"=>$notas]);
+        return view('aluno.nota', ["panel"=>"visualizar","notas"=>$notas,"back"=>route('view.index')]);
     }
 
     public function disciplina($id){
@@ -44,7 +44,7 @@ class VisualizarNotaController extends Controller
         $disciplinas = Disciplina::join('curso_disciplina','disciplina_id','disciplinas.id')
                             ->where('curso_id',$id)
                             ->paginate();
-        return view('aluno.disciplina', ["panel"=>"visualizar","disciplinas"=>$disciplinas]);
+        return view('aluno.disciplina', ["panel"=>"visualizar","disciplinas"=>$disciplinas,"back"=>route('view.index')]);
     }
 
 

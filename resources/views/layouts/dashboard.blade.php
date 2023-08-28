@@ -3,21 +3,19 @@
     use App\Utils\UserUtil;
     $isAdministrador = UserUtil::isAdministrador(false);
 @endphp
-@section('body', 'bg-light')
 @section('css')
     @parent
     <style>
-        .btn-none,
-        .bg-none {
-            border: none;
-            background: none;
+        .navbar.bg-yellow .nav-link, .navbar.bg-yellow .navbar-brand{
+            color: white;
         }
     </style>
 @endsection
+@section('body', 'bg-light')
 @section('content')
-    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+    <nav class="navbar navbar-expand-lg bg-yellow mb-4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Centro</a>
+            <a class="navbar-brand" href="#">CentroSmart</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -75,7 +73,6 @@
         @yield('painel')
     </section>
 @endsection
-
 @section('script')
     @parent
 @endsection

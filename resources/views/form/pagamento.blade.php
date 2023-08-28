@@ -18,7 +18,7 @@
     }
 @endphp
 @section('painel')
-    <form id="form-nota" class="modal-content bg-white rounded" action="{{ $action }}" method="POST">
+    <form id="form-nota" class="modal-content bg-white rounded" action="{{ $action }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method($method)
         <div class="modal-header">
@@ -27,6 +27,16 @@
         </div>
         <div class="modal-body">
             <section id="form-component">
+                <div class="mb-2">
+                    <label for="comprovativo"> @if($aluno_disabled) Comprovativo pagamento @else Faça o upload comprovativo do pagamento (.pdf) @endif</label>
+                    <input type="file" value="{{ $pagamento->comprovativo ?? 0 }}" id="comprovativo" name="comprovativo" class="form-control" required>
+                    @isset ($pagamento->comprovativo)
+                        <a href="{{url("storage/{$pagamento->comprovativo}") }}" alt="Comprovativo">
+                            <i class="fa-fas-eye"></i>
+                            <span>Ver comprovativo de pagamento</span>
+                        </a>
+                    @endisset
+                </div>
                 <div class="mb-2">
                     <label for="preco">Digita o valor</label>
                     <input type="number" name="preco" value="{{ $pagamento->preco ?? 0 }}" id="preco"

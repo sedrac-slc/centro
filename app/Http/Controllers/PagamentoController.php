@@ -12,9 +12,11 @@ use App\Utils\UserUtil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PagamentoController extends Controller
 {
+   private const FILE_STORE = "comprovativos";
 
     public function index(){
         if(!UserUtil::isAdministrador()) return redirect()->back();
@@ -46,6 +48,7 @@ class PagamentoController extends Controller
         return Pagamento::create($data);
     }
 
+
     public function store(PagamentoRequest $request)
     {
         try {
@@ -60,6 +63,7 @@ class PagamentoController extends Controller
             DB::transaction(function () use ($request,$curso,$aluno,$totalPago) {
                 $data = $request->all();
                 $data['totalPago'] = $totalPago;
+                $data['comprovativo'] = $request->comprovativo->store(PagamentoController::FILE_STORE);
                 $pagamento = Pagamento::where('aluno_id',$request->aluno_id)->orderBy('id','DESC')->first();
                 if(!isset($pagamento->id)){
                     if($request->preco >= ($curso->preco / 2)){
@@ -77,8 +81,7 @@ class PagamentoController extends Controller
             });
             MessageToastrUtil::success();
             return redirect()->route($request->back ?? 'pagamentos.index');
-        } catch (\Exception $e) {
-            dd($e);
+        } catch (\Exception) {
             MessageToastrUtil::error();
             return redirect()->back();
         }
@@ -105,6 +108,12 @@ class PagamentoController extends Controller
                 $data = $request->all();
                 $data['updated_by'] = Auth::user()->id;
                 $pagamento = Pagamento::find($id);
+                if($pagamento->comprovativo && Storage::exists($pagamento->comprovativo)){
+                    Storage::delete($pagamento->comprovativo);
+                }
+                if($pagamento->comprovativo != $request->comprovativo){
+                    $data['comprovativo'] = $request->comprovativo->store(PagamentoController::FILE_STORE);
+                }
                 $total = $totalPago + $data['preco'] - $pagamento->preco;
                 if($total >= $curso->preco){
                     $data['troco'] = $total - $curso->preco;

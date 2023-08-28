@@ -15,6 +15,7 @@ class Pagamento extends Model
         'preco',
         'prestacao',
         'troco',
+        'comprovativo',
         'is_pago_terminado',
         'created_by',
         'updated_by'

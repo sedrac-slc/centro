@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/litera.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     @yield('css')
 </head>
 <body class="@yield('body')">

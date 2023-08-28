@@ -2,6 +2,10 @@
 @section('form-open')
 <form action="{{ route('lancar.store', $cursoDisciplina->id) }}" method="POST">
     @csrf
+    <a class="btn btn-outline-primary rounded" href="{{ $back }}">
+        <i class="fas fa-arrow-left"></i>
+        <span>voltar</span>
+    </a>
     <button class="btn btn-outline-primary rounded" type="submit">
         <i class="fas fa-plus"></i>
         <span>lançar</span>

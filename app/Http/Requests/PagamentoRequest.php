@@ -24,6 +24,7 @@ class PagamentoRequest extends FormRequest
         return [
             'aluno_id' => "required",
             'preco' => "required",
+            'comprovativo' => "required|file"
         ];
     }
 }

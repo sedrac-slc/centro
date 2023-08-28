@@ -1,0 +1,37 @@
+:root{
+    --bg-yellow: rgba(255, 190, 85, 1);
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url('../fonts/Roboto-Medium.ttf');
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.bg-yellow{
+    background: var(--bg-yellow);
+}
+
+.text-yellow{
+    color: var(--bg-yellow);
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.flex-direction-column{
+    flex-direction: column;
+}
+
+.align-items-center{
+    align-items: center;
+}
+
+.btn-none, .bg-none {
+    border: none;
+    background: none;
+}

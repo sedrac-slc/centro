@@ -1,4 +1,10 @@
 @extends('layouts.page', ['list' => $notas])
+@section('buttons')
+<a class="btn btn-outline-primary rounded" href="{{ $back }}">
+    <i class="fas fa-arrow-left"></i>
+    <span>voltar</span>
+</a>
+@endsection
 @section('thead')
     <th>
         <div><i class="fas fa-clipboard"></i><span>Disciplina</span></div>
