@@ -31,20 +31,20 @@ class VisualizarNotaController extends Controller
         $user_id = auth()->user()->id;
         $notas = Nota::join('curso_disciplina','curso_disciplina_id','curso_disciplina.id')
                     ->join('alunos','notas.aluno_id','alunos.id')
+                    ->join('disciplinas','disciplina_id','disciplinas.id')
                     ->where('alunos.user_id',$user_id)
                     ->where('curso_disciplina.curso_id',$id)
-                    ->select('notas.*')
+                    ->select('notas.*','disciplinas.nome as disciplina')
                     ->paginate();
-        return view('aluno.notas', ["panel"=>"notas","visualizar"=>$notas]);
+        return view('aluno.nota', ["panel"=>"visualizar","notas"=>$notas]);
     }
 
     public function disciplina($id){
         if(!UserUtil::isAluno()) return redirect()->back();
-        $disciplinas = Disciplina::orderBy('id','desc')
-                            ->join('curso_disciplina','disciplina_id','disciplinas.id')
+        $disciplinas = Disciplina::join('curso_disciplina','disciplina_id','disciplinas.id')
                             ->where('curso_id',$id)
                             ->paginate();
-        return view('aluno.disciplinas', ["panel"=>"visualizar","disciplinas"=>$disciplinas]);
+        return view('aluno.disciplina', ["panel"=>"visualizar","disciplinas"=>$disciplinas]);
     }
 
 

@@ -41,13 +41,13 @@
             <td>{{ $curso->sala }}</td>
             <td>
                 <a href="{{ route('view.disciplinas',$curso->id) }}" class="text-info rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
-                    <i class="fas fa-eyes"></i>
+                    <i class="fas fa-clipboard"></i>
                     <span>disciplina</span>
                 </a>
             </td>
             <td>
                 <a href="{{ route('view.notas',$curso->id) }}" class="text-primary rounded btn-sm btn-user-tr d-flex gap-1 align-items-center">
-                    <i class="fas fa-eyes"></i>
+                    <i class="fas fa-clipboard-list"></i>
                     <span>notas</span>
                 </a>
             </td>

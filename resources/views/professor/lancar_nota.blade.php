@@ -33,19 +33,19 @@
                     <span>{{ $aluno->user->name }}</span>
                 </td>
                 <td>
-                    <input class="notas" name="nota_primeiro[]" type="number" value="{{ $nota->nota_primeiro ?? 0 }}" min="0"
+                    <input class="notas form-control text-center" name="nota_primeiro[]" type="number" value="{{ $nota->nota_primeira ?? 0 }}" min="0"
                         max="20">
                 </td>
                 <td>
-                    <input class="notas" name="nota_segunda[]" type="number" value="{{ $nota->nota_segunda ?? 0 }}" min="0"
+                    <input class="notas form-control text-center" name="nota_segunda[]" type="number" value="{{ $nota->nota_segunda ?? 0 }}" min="0"
                         max="20">
                 </td>
                 <td>
-                    <input class="notas" name="nota_terceiro[]" type="number" value="{{ $nota->nota_terceiro ?? 0 }}" min="0"
+                    <input class="notas form-control text-center" name="nota_terceiro[]" type="number" value="{{ $nota->nota_terceira ?? 0 }}" min="0"
                         max="20">
                 </td>
                 <td>
-                    <input type="number" name="nota_final[]" value="{{ $nota->nota_final ?? 0 }}" min="0"
+                    <input class="form-control text-center" type="number" name="nota_final[]" value="{{ $nota->nota_final ?? 0 }}" min="0"
                         max="20" disabled>
                 </td>
             </tr>
