@@ -5,6 +5,7 @@ use App\Http\Controllers\{
     NotaController,
     CursoController,
     AlunoController,
+    InscricaoController,
     ProfessorController,
     PagamentoController,
     DisciplinaController,
@@ -23,6 +24,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/incricoes-public', [InscricaoController::class, 'index_public'])->name('inscricao.public');
 
 Route::middleware(["auth"])->group(function(){
     Route::get('curso-aluno/disciplinas/{id}',[VisualizarNotaController::class,'disciplina'])->name('view.disciplinas');
@@ -58,9 +60,10 @@ Route::middleware(["auth"])->group(function(){
 
     Route::resource('curso-disciplina',CursoDisciplinaController::class);
     Route::resource('utilizadores',UtilizadorController::class);
+    Route::resource('inscricaoes', InscricaoController::class);
     Route::resource('disciplinas',DisciplinaController::class);
-    Route::resource('pagamentos',PagamentoController::class);
     Route::resource('professores',ProfessorController::class);
+    Route::resource('pagamentos',PagamentoController::class);
     Route::resource('alunos', AlunoController::class);
     Route::resource('cursos',CursoController::class);
     Route::resource('notas',NotaController::class);

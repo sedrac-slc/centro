@@ -10,28 +10,28 @@
 @endsection
 @section('thead')
     <th>
-        <div><i class="fas text-yellow fa-image"></i><span>Foto</span></div>
+        <div><span>Foto</span></div>
     </th>
     <th>
-        <div><i class="fas text-yellow fa-signature"></i><span>Nome</span></div>
+        <div><span>Nome</span></div>
     </th>
     <th>
-        <div><i class="fas text-yellow fa-envelope"></i><span>Email</span></div>
+        <div><span>Email</span></div>
     </th>
     <th>
-        <div><i class="fas text-yellow fa-venus-mars"></i><span>Gênero</span></div>
+        <div><span>Gênero</span></div>
     </th>
     <th>
-        <div><i class="fas text-yellow fa-phone"></i><span>Telefone</span></div>
+        <div><span>Telefone</span></div>
     </th>
     <th>
-        <div><i class="fas text-yellow fa-calendar"></i><span>Data nascimento</span></div>
+        <div><span>Data nascimento</span></div>
     </th>
     <th>
-        <div><i class="fas text-yellow fa-user-secret"></i><span>Tipo</span></div>
+        <div><span>Tipo</span></div>
     </th>
     <th colspan="2">
-        <div><i class="fas text-yellow fa-tools"></i><span>Acções</span></div>
+        <div><span>Acções</span></div>
     </th>
 @endsection
 @section('tbody')

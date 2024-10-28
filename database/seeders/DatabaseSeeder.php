@@ -50,8 +50,8 @@ class DatabaseSeeder extends Seeder
 
         for ($i = 0; $i < $tam; $i++) {
             $users[] = User::create(UserUtil::generatorFaker());
-            $cursos[] = Curso::create(CursoUtil::generatorFaker($admin));
-            $disciplinas[] = Disciplina::create(DisciplinaUtil::generatorFaker($admin));
+           // $cursos[] = Curso::create(CursoUtil::generatorFaker($admin));
+           // $disciplinas[] = Disciplina::create(DisciplinaUtil::generatorFaker($admin));
         }
 
         do {
@@ -68,42 +68,42 @@ class DatabaseSeeder extends Seeder
         } while (25 != sizeof($cursoDisciplinas));
 
         $alunosUser = $this->filterUserTipo($users, "ALUNO");
-        $professoresUser = $this->filterUserTipo($users, "PROFESSOR");
+        // $professoresUser = $this->filterUserTipo($users, "PROFESSOR");
 
-        $alunos = [];
-        foreach($alunosUser as $aluno){
-            $curso = $this->randomObject($cursos);
-            $alunos[] = Aluno::create(AlunoUtil::generatorFaker($aluno,$curso,$admin));
-        }
+        // $alunos = [];
+        // foreach($alunosUser as $aluno){
+        //     $curso = $this->randomObject($cursos);
+        //     $alunos[] = Aluno::create(AlunoUtil::generatorFaker($aluno,$curso,$admin));
+        // }
 
-        $professores = [];
-        foreach($professoresUser as $professor){
-            $cursoDisciplina = $this->randomObject($cursoDisciplinas);
-            $professores[] = Professor::create(ProfessorUtil::generatorFaker($professor,$cursoDisciplina,$admin));
-        }
+        // $professores = [];
+        // foreach($professoresUser as $professor){
+        //     $cursoDisciplina = $this->randomObject($cursoDisciplinas);
+        //     $professores[] = Professor::create(ProfessorUtil::generatorFaker($professor,$cursoDisciplina,$admin));
+        // }
 
         $cont = 0;
         do{
-            $aluno = $this->randomObject($alunos);
-            $cursoDisciplina = $this->randomObject($cursoDisciplinas);
+            // $aluno = $this->randomObject($alunos);
+            // $cursoDisciplina = $this->randomObject($cursoDisciplinas);
 
-            if($cursoDisciplina->curso_id == $aluno->curso_id){
-                $data = [];
+            // if($cursoDisciplina->curso_id == $aluno->curso_id){
+            //     $data = [];
 
-                $data['aluno_id'] = $aluno->id;
-                $data['curso_disciplina_id'] = $cursoDisciplina->id;
+            //     $data['aluno_id'] = $aluno->id;
+            //     $data['curso_disciplina_id'] = $cursoDisciplina->id;
 
-                $data['nota_primeira'] = rand(0,20);
-                $data['nota_segunda'] = rand(0,20);
-                $data['nota_terceira'] = rand(0,20);
-                $data['nota_final'] = ($data['nota_primeira']+$data['nota_segunda']+$data['nota_terceira']) / 3;
-                $data['created_by'] = $data['updated_by'] = $admin->id;
-                $nota = Nota::where(['curso_disciplina_id'=>$cursoDisciplina->id,'aluno_id'=>$aluno->id])->first();
-                if(!isset($nota->id)){
-                    Nota::create($data);
-                    $cont++;
-                }
-            }
+            //     $data['nota_primeira'] = rand(0,20);
+            //     $data['nota_segunda'] = rand(0,20);
+            //     $data['nota_terceira'] = rand(0,20);
+            //     $data['nota_final'] = ($data['nota_primeira']+$data['nota_segunda']+$data['nota_terceira']) / 3;
+            //     $data['created_by'] = $data['updated_by'] = $admin->id;
+            //     $nota = Nota::where(['curso_disciplina_id'=>$cursoDisciplina->id,'aluno_id'=>$aluno->id])->first();
+            //     if(!isset($nota->id)){
+            //         Nota::create($data);
+            //         $cont++;
+            //     }
+            // }
 
         }while($cont < 20);
 

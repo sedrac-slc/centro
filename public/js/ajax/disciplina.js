@@ -26,7 +26,7 @@ function tableComponentDisciplina(line) {
             <thead>
                 <tr>
                     <th class="text-center"><span>#</span></th>
-                    <th><i class="fas fa-signature"></i><span>Nome</span></th>
+                    <th><span>Nome</span></th>
                  </tr>
             </thead>
             <tbody>${line}</tbody>

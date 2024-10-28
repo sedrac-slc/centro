@@ -35,12 +35,12 @@ function tableComponentCurso(line) {
             <thead>
                 <tr>
                     <th class="text-center"><span>#</span></th>
-                    <th><i class="fas fa-signature"></i><span>Nome</span></th>
-                    <th><i></i><span>Preço</span></td>
-                    <th><i></i><span>Data inicio</span></td>
-                    <th><i></i><span>Data termino</span></td>
-                    <th><i></i><span>Hora entrada</span></td>
-                    <th><i></i><span>Hora saída</span></td>
+                    <th><span>Nome</span></th>
+                    <th><span>Preço</span></td>
+                    <th><span>Data inicio</span></td>
+                    <th><span>Data termino</span></td>
+                    <th><span>Hora entrada</span></td>
+                    <th><span>Hora saída</span></td>
                  </tr>
             </thead>
             <tbody>${line}</tbody>

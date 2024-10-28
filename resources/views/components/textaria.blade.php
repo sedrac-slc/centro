@@ -1,5 +1,5 @@
 <label for="{{ $name }}">
-    <i class="{{ $icon }}"></i>
+    {{-- <i class="{{ $icon }}"></i> --}}
     <span>{{ $label }}</span>
     @if ($require ?? false)
         <span class="text-danger">*</span>

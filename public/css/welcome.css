@@ -4,9 +4,28 @@
     box-sizing: border-box;
 }
 
-header{
-    background: var(--bg-yellow);
-    color: white;
+:root{
+    --bg-yellow: rgba(255, 190, 85, 1);
+}
+
+body{
+    font-family: 'Roboto', Cambria, sans-serif;
+}
+
+.card{
+    border-color: var(--bg-yellow);
+}
+
+.card .card-title, .text-yellow{
+    color: var(--bg-yellow);
+}
+
+nav, header{
+    border-bottom: 1px solid var(--bg-yellow);
+}
+
+footer{
+    border-top: 1px solid var(--bg-yellow);
 }
 
 header p {

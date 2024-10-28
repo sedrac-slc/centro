@@ -15,6 +15,18 @@ body{
     background: var(--bg-yellow);
 }
 
+.border-yellow{
+    border: 1px solid var(--bg-yellow);
+}
+
+.menu-nav .nav-link, .menu-nav a{
+    color: black;
+}
+
+.border-b-yellow{
+    border-bottom: 1px solid var(--bg-yellow);
+}
+
 .text-yellow{
     color: var(--bg-yellow);
 }

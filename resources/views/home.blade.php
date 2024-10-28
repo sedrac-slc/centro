@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 @section('painel')
     <h3 class="m-2 p-2">
-        <i class="fas text-yellow  fa-info-circle"></i>
         <span>Informações da conta</span>
     </h3>
     <div class="accordion m-auto bg-white p-3" id="accordionExample">
@@ -9,7 +8,6 @@
             <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas text-yellow fa-user"></i>
                     <span>Dados pessoas</span>
                 </button>
             </h2>

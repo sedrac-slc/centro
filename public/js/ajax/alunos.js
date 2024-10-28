@@ -36,11 +36,11 @@ function tableComponentAluno(line) {
             <thead>
                 <tr>
                     <th class="text-center"><span>#</span></th>
-                    <th><i class="fas fa-clipboard"></i><span>Curso</span></th>
-                    <th><i class="fas fa-money-bill"></i><span>Preço</span></th>
-                    <th><i class="fas fa-signature"></i><span>Nome</span></th>
-                    <th><i class="fas fa-at"></i><span>Email</span></th>
-                    <th><i class="fas fa-phone"></i><span>Contacto</span></th>
+                    <th><span>Curso</span></th>
+                    <th><span>Preço</span></th>
+                    <th><span>Nome</span></th>
+                    <th><span>Email</span></th>
+                    <th><span>Contacto</span></th>
                  </tr>
             </thead>
             <tbody>${line}</tbody>
