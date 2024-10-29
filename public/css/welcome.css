@@ -12,7 +12,7 @@ body{
     font-family: 'Roboto', Cambria, sans-serif;
 }
 
-.card{
+.card-yellow{
     border-color: var(--bg-yellow);
 }
 

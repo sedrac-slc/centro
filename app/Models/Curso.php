@@ -32,6 +32,10 @@ class Curso extends Model
         return $this->hasMany(Aluno::class);
     }
 
+    public function inscricoes(){
+        return $this->hasMany(Inscricao::class);
+    }
+
     public function disciplinas(){
         return $this->belongsToMany(Disciplina::class);
     }

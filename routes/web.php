@@ -25,8 +25,10 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/incricoes-public', [InscricaoController::class, 'index_public'])->name('inscricao.public');
+Route::post('/incricoes-public', [InscricaoController::class, 'store_public'])->name('inscricao.store.public');
 
 Route::middleware(["auth"])->group(function(){
+
     Route::get('curso-aluno/disciplinas/{id}',[VisualizarNotaController::class,'disciplina'])->name('view.disciplinas');
     Route::get('curso-aluno/notas/{id}',[VisualizarNotaController::class,'nota'])->name('view.notas');
     Route::get('curso-aluno',[VisualizarNotaController::class,'cursos'])->name('view.index');
@@ -71,5 +73,9 @@ Route::middleware(["auth"])->group(function(){
     Route::put('conta/foto-perfil/{id}', [HomeController::class, 'photo'])->name('account.photo');
     Route::post('conta/palavra-passe', [HomeController::class, 'password'])->name('account.pass');
     Route::post('conta/actualizar', [HomeController::class, 'update'])->name('account.update');
+
+    Route::get('/incricoes', [InscricaoController::class, 'index'])->name('inscricoes.index');
+    Route::post('/incricoao-confirm', [InscricaoController::class, 'confirm'])->name('inscricoes.confirm');
+    Route::delete('/incricoao-delete/{id}', [InscricaoController::class, 'delete'])->name('inscricoes.delete');
 
 });
