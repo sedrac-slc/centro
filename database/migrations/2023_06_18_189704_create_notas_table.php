@@ -22,7 +22,6 @@ return new class extends Migration
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
-            $table->unique('curso_disciplina_id','aluno_id');
         });
     }
 

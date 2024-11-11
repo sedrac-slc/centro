@@ -91,7 +91,7 @@ class NotaController extends Controller
     public function destroy($id)
     {
         try {
-            if(!UserUtil::isAdministrador()) return redirect()->back();
+            if( !( UserUtil::isAdministrador() || UserUtil::isProfessor() ) ) return redirect()->back();
             DB::transaction(function () use ($id) {
                 $nota = Nota::find($id);
                 $nota->delete();

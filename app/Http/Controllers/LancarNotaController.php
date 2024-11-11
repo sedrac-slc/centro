@@ -30,7 +30,7 @@ class LancarNotaController extends Controller
 
     public function curso_disciplina($id){
         if(!UserUtil::isProfessor()) return redirect()->back();
-        $cursoDisciplina = CursoDisciplina::find($id);
+        $cursoDisciplina = CursoDisciplina::with('curso', 'disciplina')->find($id);
         $disciplina = Disciplina::find($cursoDisciplina->id);
         $alunos = Aluno::with('user')->where('curso_id',$cursoDisciplina->curso_id)->paginate();
         return view('professor.lancar_nota', ["panel"=>"lancar","disciplina" => $disciplina,"cursoDisciplina"=>$cursoDisciplina, "alunos" => $alunos, "back" => route('lancar.index')]);
